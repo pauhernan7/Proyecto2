@@ -1,14 +1,16 @@
 package com.example.projecte2;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,42 +19,57 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-public class DashboardActivity extends AppCompatActivity {
+public class DashboardActivity extends AppCompatActivity
+        implements HeaderFragment.OnMenuClickListener, NavigationView.OnNavigationItemSelectedListener {
+
+    private DrawerLayout drawerLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dashboard);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
 
+        // Configurar el Navigation Drawer
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        // Configurar el header fragment
+        setupHeaderFragment();
+
+        // Configurar el gráfico de productos
+        setupProductChart();
+
+        // Mostrar el producto más vendido
+        setupMostSoldProduct();
+
+        // Configurar la lista de últimos pedidos
+        setupRecentOrders();
+    }
+
+    private void setupHeaderFragment() {
+        HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.headerFragment);
+
+        if (headerFragment != null) {
+            headerFragment.setOnMenuClickListener(this);
+            headerFragment.setTitle("Dashboard"); // Ahora este método funciona
+        }
+    }
+
+    private void setupProductChart() {
         // Datos de prueba para el gráfico
         int producto1 = 3;
         int producto2 = 5;
         int producto3 = 9;
         int totalProductos = producto1 + producto2 + producto3;
 
-        // Configurar el gráfico
-        setupPieChart(producto1, producto2, producto3, totalProductos);
-
-        // Mostrar el producto más vendido
-        showMostSoldProduct(producto1, producto2, producto3);
-
-        // Configurar el RecyclerView de últimos pedidos
-        setupRecentOrdersRecyclerView();
-    }
-
-    private void setupPieChart(int producto1, int producto2, int producto3, int totalProductos) {
         PieChart pieChart = findViewById(R.id.pieChart);
 
         ArrayList<PieEntry> entries = new ArrayList<>();
@@ -78,10 +95,14 @@ public class DashboardActivity extends AppCompatActivity {
         pieChart.invalidate();
     }
 
-    private void showMostSoldProduct(int producto1, int producto2, int producto3) {
+    private void setupMostSoldProduct() {
         TextView tvMostSoldProduct = findViewById(R.id.tvMostSoldProduct);
 
-        // Determinar el producto más vendido
+        // Datos de prueba
+        int producto1 = 3;
+        int producto2 = 5;
+        int producto3 = 9;
+
         String mostSoldProduct;
         if (producto3 >= producto2 && producto3 >= producto1) {
             mostSoldProduct = "Producto C (" + producto3 + " unidades)";
@@ -94,11 +115,11 @@ public class DashboardActivity extends AppCompatActivity {
         tvMostSoldProduct.setText(mostSoldProduct);
     }
 
-    private void setupRecentOrdersRecyclerView() {
+    private void setupRecentOrders() {
         RecyclerView recyclerView = findViewById(R.id.rvRecentOrders);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Datos de prueba para los últimos pedidos
+        // Datos de prueba
         List<Order> recentOrders = Arrays.asList(
                 new Order("#1234", "15/06/2023", "€125.50"),
                 new Order("#1233", "14/06/2023", "€89.99"),
@@ -109,5 +130,39 @@ public class DashboardActivity extends AppCompatActivity {
 
         OrderAdapter adapter = new OrderAdapter(recentOrders);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void onMenuClick() {
+        // Abrir el menú al hacer clic en el icono
+        drawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_dashboard) {
+            // Ya estamos en Dashboard
+            Toast.makeText(this, "Ya estás en Dashboard", Toast.LENGTH_SHORT).show();
+        } else if (id == R.id.nav_catalog) {
+            startActivity(new Intent(this, CatalogActivity.class));
+        } else if (id == R.id.nav_orders) {
+            startActivity(new Intent(this, OrdersActivity.class));
+        } else if (id == R.id.nav_support) {
+            startActivity(new Intent(this, SupportActivity.class));
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 }

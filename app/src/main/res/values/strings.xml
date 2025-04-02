@@ -6,4 +6,6 @@
     <string name="about_us_button_text">Más sobre nosotros</string>
     <string name="logo_descripcion">Logo de la empresa</string>
     <string name="register_button_text">Registrarse</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
