@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MasSobreNosotros">
+
+    <TextView
+        android:id="@+id/title_about_us"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Qui som i que fem"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/text_about_us"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="La nostra empresa té com a objectiu ajudar els petits negocis a digitalitzar-se, oferint-los serveis que van des del desenvolupament de pàgines web personalitzades fins a l’assessorament en estratègies digitals. No només creem un lloc web per a cada client, sinó que també ens assegurem que sigui funcional, atractiu i fàcil d’utilitzar, tant per als propietaris com per als seus clients."
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/title_about_us"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:justificationMode="inter_word"
+
+        android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/title_benefits"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Beneficis de digitalitzar-se amb nosaltres"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/text_about_us"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="8dp" />
+
+    <TextView
+        android:id="@+id/text_benefits"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Amb el nostre servei, els negocis podran tenir una botiga online pròpia, gestionar les seves vendes des d’un sistema senzill i arribar a un públic més ampli sense haver de dependre de grans marketplaces que cobren comissions elevades i redueixen el marge de benefici dels petits comerços."
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/title_benefits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:justificationMode="inter_word"
+
+        android:padding="16dp" />
+
+    <TextView
+        android:id="@+id/more_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Més informació a la nostra web"
+        android:textSize="16sp"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/text_benefits"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/button_web"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Web"
+        app:layout_constraintTop_toBottomOf="@id/more_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:padding="8dp"
+        android:backgroundTint="@color/colorPrimary"
+        />
+
+    <Button
+        android:id="@+id/button_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tornar"
+        app:layout_constraintTop_toBottomOf="@id/button_web"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="20dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:padding="8dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

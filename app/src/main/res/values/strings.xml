@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">projecte2</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_button_text">Iniciar sesión</string>
+    <string name="about_us_button_text">Más sobre nosotros</string>
+    <string name="logo_descripcion">Logo de la empresa</string>
+    <string name="register_button_text">Registrarse</string>
+</resources>
