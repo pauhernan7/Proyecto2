@@ -20,12 +20,17 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.navigation.NavigationView;
 import android.content.SharedPreferences;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DashboardActivity extends AppCompatActivity
         implements HeaderFragment.OnMenuClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -84,36 +89,83 @@ public class DashboardActivity extends AppCompatActivity
     }
 
     private void setupProductChart() {
-        // Datos de prueba para el gráfico
-        int producto1 = 3;
-        int producto2 = 5;
-        int producto3 = 9;
-        int totalProductos = producto1 + producto2 + producto3;
-
         PieChart pieChart = findViewById(R.id.pieChart);
+        TextView tvMostSoldProduct = findViewById(R.id.tvMostSoldProduct);
 
-        ArrayList<PieEntry> entries = new ArrayList<>();
-        entries.add(new PieEntry(producto1, "Producto A"));
-        entries.add(new PieEntry(producto2, "Producto B"));
-        entries.add(new PieEntry(producto3, "Producto C"));
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", null);  // Asegúrate de guardar el token al iniciar sesión
 
-        PieDataSet dataSet = new PieDataSet(entries, "Productos Vendidos");
-        dataSet.setColors(Color.RED, Color.BLUE, Color.GREEN);
-        dataSet.setValueTextSize(14f);
-        dataSet.setValueTextColor(Color.WHITE);
+        if (token == null) {
+            Toast.makeText(this, "Token no disponible", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        PieData data = new PieData(dataSet);
-        pieChart.setData(data);
-        pieChart.setUsePercentValues(true);
-        pieChart.setEntryLabelColor(Color.BLACK);
-        pieChart.setEntryLabelTextSize(12f);
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<List<ProductoVendido>> call = apiService.getProductosVendidos("Bearer " + token);
 
-        Description description = new Description();
-        description.setText("Total vendidos: " + totalProductos);
-        description.setTextSize(14f);
-        pieChart.setDescription(description);
-        pieChart.invalidate();
+        call.enqueue(new Callback<List<ProductoVendido>>() {
+            @Override
+            public void onResponse(Call<List<ProductoVendido>> call, Response<List<ProductoVendido>> response) {
+                if (response.isSuccessful()) {
+                    List<ProductoVendido> productos = response.body();
+                    if (productos == null || productos.isEmpty()) {
+                        Toast.makeText(DashboardActivity.this, "No hay productos vendidos", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    List<PieEntry> entries = new ArrayList<>();
+                    int totalVendidos = 0;
+
+                    ProductoVendido masVendido = productos.get(0);
+                    for (ProductoVendido producto : productos) {
+                        entries.add(new PieEntry(producto.getCantidad_vendida(), producto.getNombre()));
+                        totalVendidos += producto.getCantidad_vendida();
+
+                        if (producto.getCantidad_vendida() > masVendido.getCantidad_vendida()) {
+                            masVendido = producto;
+                        }
+                    }
+
+                    PieDataSet dataSet = new PieDataSet(entries, "Productos Vendidos");
+                    dataSet.setColors(Color.RED, Color.BLUE, Color.GREEN, Color.MAGENTA, Color.CYAN);
+                    dataSet.setValueTextSize(14f);
+                    dataSet.setValueTextColor(Color.WHITE);
+
+                    PieData data = new PieData(dataSet);
+                    data.setValueFormatter(new ValueFormatter() {
+                        @Override
+                        public String getPieLabel(float value, PieEntry pieEntry) {
+                            // value ya es el porcentaje si `setUsePercentValues(true)`
+                            int cantidad = (int) pieEntry.getValue();  // cantidad_vendida
+                            return cantidad + " (" + Math.round(value) + "%)";
+                        }
+                    });
+
+                    pieChart.setData(data);
+                    pieChart.setUsePercentValues(true);
+                    pieChart.setEntryLabelColor(Color.BLACK);
+                    pieChart.setEntryLabelTextSize(12f);
+
+                    Description description = new Description();
+                    description.setText("Total vendidos: " + totalVendidos);
+                    description.setTextSize(14f);
+                    pieChart.setDescription(description);
+                    pieChart.invalidate();
+
+                    // Actualizar texto del producto más vendido
+                    tvMostSoldProduct.setText(masVendido.getNombre() + " (" + masVendido.getCantidad_vendida() + " unidades)");
+                } else {
+                    Toast.makeText(DashboardActivity.this, "Error al obtener productos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<ProductoVendido>> call, Throwable t) {
+                Toast.makeText(DashboardActivity.this, "Fallo al conectar con el servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
     private void setupMostSoldProduct() {
         TextView tvMostSoldProduct = findViewById(R.id.tvMostSoldProduct);
