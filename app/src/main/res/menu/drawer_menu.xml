@@ -16,6 +16,10 @@
         <item
             android:id="@+id/nav_support"
             android:icon="@drawable/burguer"
-            android:title="Support" />
+            android:title="Suport" />
+        <item
+            android:id="@+id/logout"
+            android:icon="@drawable/burguer"
+            android:title="Logout" />
     </group>
 </menu>

@@ -9,6 +9,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <TextView
+        android:id="@+id/tvRol"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Mi Tienda"
@@ -17,6 +18,7 @@
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/tvEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="admin@tienda.com"

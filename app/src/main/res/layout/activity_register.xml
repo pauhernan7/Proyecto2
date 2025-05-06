@@ -38,7 +38,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:hint="Nom"
+        android:hint="@string/username_hint"
         android:inputType="textPersonName" />
 
     <!-- Campo para el correo electrónico -->

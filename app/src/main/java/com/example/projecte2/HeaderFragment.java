@@ -1,5 +1,7 @@
 package com.example.projecte2;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ public class HeaderFragment extends Fragment {
     private String title;
     private OnMenuClickListener menuClickListener;
     private TextView tvTitle;
+    private TextView tvUsername;
 
     public interface OnMenuClickListener {
         void onMenuClick();
@@ -48,6 +51,10 @@ public class HeaderFragment extends Fragment {
             tvTitle.setText(title);
         }
 
+        // Cargar el username desde SharedPreferences y actualizar el TextView
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+
+
         ImageButton btnMenu = view.findViewById(R.id.btnMenu);
         btnMenu.setOnClickListener(v -> {
             if (menuClickListener != null) {
@@ -61,6 +68,7 @@ public class HeaderFragment extends Fragment {
     public void setOnMenuClickListener(OnMenuClickListener listener) {
         this.menuClickListener = listener;
     }
+
 
     // Añade este método para cambiar el título dinámicamente
     public void setTitle(String newTitle) {

@@ -1,8 +1,11 @@
 package com.example.projecte2;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +28,22 @@ public class CatalogActivity extends AppCompatActivity
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        // Obtener el header del NavigationView
+        View headerView = navigationView.getHeaderView(0);
+
+        // Obtener los TextViews del header
+        TextView tvRol = headerView.findViewById(R.id.tvRol);
+        TextView tvEmail = headerView.findViewById(R.id.tvEmail);
+
+        // Obtener los datos de SharedPreferences
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String rol = prefs.getString("rol", "No definido");
+        String email = prefs.getString("email", "correo@ejemplo.com");
+
+        // Establecer los datos en el header
+        tvRol.setText(rol);
+        tvEmail.setText(email);
 
         // Configurar el header fragment
         HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager()
@@ -65,6 +84,18 @@ public class CatalogActivity extends AppCompatActivity
             finish();
         } else if (id == R.id.nav_support) {
             startActivity(new Intent(this, SupportActivity.class));
+            finish();
+        } else if (id == R.id.logout) {
+            // Borrar SharedPreferences
+            getSharedPreferences("user_prefs", MODE_PRIVATE)
+                    .edit()
+                    .clear()
+                    .apply();
+
+            // Ir a la pantalla de login y cerrar actividades anteriores
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
             finish();
         }
 
