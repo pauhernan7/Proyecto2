@@ -8,5 +8,8 @@ public interface ApiService {
 
     @POST("/api/login/")
     Call<LoginResponse> login(@Body LoginRequest request);
+
+    @POST("/api/registro/")  // Asegúrate de que esta ruta sea correcta según tu servidor
+    Call<RegisterResponse> registerUser(@Body RegisterRequest registerRequest);
 }
 
