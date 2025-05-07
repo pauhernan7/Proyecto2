@@ -1,25 +1,27 @@
 package com.example.projecte2;
 
 public class Order {
-    private String orderId;
-    private String date;
-    private String amount;
+    private int id;
+    private Usuario usuario;
+    private double total_precio;
+    private String fecha_creacion;
+    private String estado;
 
-    public Order(String orderId, String date, String amount) {
-        this.orderId = orderId;
-        this.date = date;
-        this.amount = amount;
+    // Getters
+    public int getId() { return id; }
+    public Usuario getUsuario() { return usuario; }
+    public double getTotal_precio() { return total_precio; }
+    public String getEstado() { return estado; }
+
+
+    // Solo queremos yyyy-MM-dd
+    public String getFechaFormateada() {
+        return fecha_creacion != null ? fecha_creacion.substring(0, 10) : "";
     }
 
-    public String getOrderId() {
-        return orderId;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public String getAmount() {
-        return amount;
+    public static class Usuario {
+        private String email;
+        public String getEmail() { return email; }
     }
 }
+

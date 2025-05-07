@@ -3,6 +3,7 @@ package com.example.projecte2;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.navigation.NavigationView;
 import android.content.SharedPreferences;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -72,7 +74,7 @@ public class DashboardActivity extends AppCompatActivity
         // Mostrar el producto más vendido
         setupMostSoldProduct();
 
-        // Configurar la lista de últimos pedidos
+        // Configurar la lista de últimos orders
         setupRecentOrders();
     }
 
@@ -191,18 +193,43 @@ public class DashboardActivity extends AppCompatActivity
         RecyclerView recyclerView = findViewById(R.id.rvRecentOrders);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Datos de prueba
-        List<Order> recentOrders = Arrays.asList(
-                new Order("#1234", "15/06/2023", "€125.50"),
-                new Order("#1233", "14/06/2023", "€89.99"),
-                new Order("#1232", "14/06/2023", "€45.20"),
-                new Order("#1231", "13/06/2023", "€210.00"),
-                new Order("#1230", "12/06/2023", "€65.75")
-        );
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", null);
 
-        OrderAdapter adapter = new OrderAdapter(recentOrders);
-        recyclerView.setAdapter(adapter);
+        if (token == null) {
+            Toast.makeText(this, "Token no disponible", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<List<Order>> call = apiService.getUltimosOrders("Bearer " + token);
+
+        call.enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Order> orders = response.body();
+                    OrderAdapter adapter = new OrderAdapter(orders);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Log.e("API_ERROR", "Código: " + response.code());
+                    try {
+                        if (response.errorBody() != null) {
+                            Log.e("API_ERROR", "Error body: " + response.errorBody().string());
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(DashboardActivity.this, "Error al obtener orders", Toast.LENGTH_SHORT).show();                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Toast.makeText(DashboardActivity.this, "Fallo al conectar con el servidor", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
     @Override
     public void onMenuClick() {

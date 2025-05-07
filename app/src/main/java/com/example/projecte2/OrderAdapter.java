@@ -12,7 +12,7 @@ import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHolder> {
 
-    private final List<Order> orders;
+    private List<Order> orders;
 
     public OrderAdapter(List<Order> orders) {
         this.orders = orders;
@@ -29,9 +29,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
     @Override
     public void onBindViewHolder(@NonNull OrderViewHolder holder, int position) {
         Order order = orders.get(position);
-        holder.tvOrderId.setText(order.getOrderId());
-        holder.tvDate.setText(order.getDate());
-        holder.tvAmount.setText(order.getAmount());
+        holder.tvOrderId.setText("#" + order.getId());
+        holder.tvDate.setText(order.getFechaFormateada());
+        holder.tvUserEmail.setText(order.getUsuario().getEmail());
+        holder.tvTotalPrice.setText(order.getTotal_precio() + "€");
     }
 
     @Override
@@ -39,14 +40,15 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         return orders.size();
     }
 
-    static class OrderViewHolder extends RecyclerView.ViewHolder {
-        TextView tvOrderId, tvDate, tvAmount;
+    public static class OrderViewHolder extends RecyclerView.ViewHolder {
+        TextView tvOrderId, tvDate, tvUserEmail, tvTotalPrice;
 
         public OrderViewHolder(@NonNull View itemView) {
             super(itemView);
             tvOrderId = itemView.findViewById(R.id.tvOrderId);
-            tvDate = itemView.findViewById(R.id.tvDate);
-            tvAmount = itemView.findViewById(R.id.tvAmount);
+            tvDate = itemView.findViewById(R.id.tvOrderDate);
+            tvUserEmail = itemView.findViewById(R.id.tvUserEmail);
+            tvTotalPrice = itemView.findViewById(R.id.tvOrderAmount);
         }
     }
 }
