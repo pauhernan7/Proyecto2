@@ -12,12 +12,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.navigation.NavigationView;
+import android.os.Bundle;
+import android.util.Log;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import java.util.List;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CatalogActivity extends AppCompatActivity
         implements HeaderFragment.OnMenuClickListener,
         NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private RecyclerView recyclerCatalog;
+    private ProductAdapter productAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +38,8 @@ public class CatalogActivity extends AppCompatActivity
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
 
         // Obtener el header del NavigationView
         View headerView = navigationView.getHeaderView(0);
@@ -45,6 +57,7 @@ public class CatalogActivity extends AppCompatActivity
         tvRol.setText(rol);
         tvEmail.setText(email);
 
+
         // Configurar el header fragment
         HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.headerFragment);
@@ -54,13 +67,35 @@ public class CatalogActivity extends AppCompatActivity
             headerFragment.setTitle("Catàleg"); // Establecer título
         }
 
+
+        recyclerCatalog = findViewById(R.id.recyclerCatalog);
+        recyclerCatalog.setLayoutManager(new LinearLayoutManager(this));
+
         // Aquí configurarías tu RecyclerView para el catálogo
         setupCatalog();
     }
 
     private void setupCatalog() {
-        // Configuración de tu lista de productos
-        // ...
+        ApiService apiService = RetrofitClient.getApiService();
+
+        Call<List<Producto>> call = apiService.listarProductos();
+        call.enqueue(new Callback<List<Producto>>() {
+            @Override
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Producto> productos = response.body();
+                    productAdapter = new ProductAdapter(productos);
+                    recyclerCatalog.setAdapter(productAdapter);
+                } else {
+                    Toast.makeText(CatalogActivity.this, "Error al obtener productos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Toast.makeText(CatalogActivity.this, "Fallo en la conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

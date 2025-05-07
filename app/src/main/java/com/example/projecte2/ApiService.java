@@ -4,9 +4,12 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface ApiService {
 
@@ -21,6 +24,18 @@ public interface ApiService {
 
     @GET("api/app/pedidos/ultimos/")
     Call<List<Order>> getUltimosOrders(@Header("Authorization") String token);
+
+    @GET("api/app/productos/")
+    Call<List<Producto>> listarProductos();
+
+    @POST("api/app/productos/crear/")
+    Call<Producto> crearProducto(@Body Producto producto, @Header("Authorization") String token);
+
+    @PUT("api/app/productos/{id}/")
+    Call<Producto> actualizarProducto(@Path("id") int id, @Body Producto producto, @Header("Authorization") String token);
+
+    @DELETE("api/app/productos/{id}/")
+    Call<Void> eliminarProducto(@Path("id") int id, @Header("Authorization") String token);
 
 }
 
