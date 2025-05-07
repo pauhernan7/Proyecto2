@@ -76,6 +76,9 @@ public class CatalogActivity extends AppCompatActivity
     }
 
     private void setupCatalog() {
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", ""); // Asegúrate de almacenar el token previamente
+
         ApiService apiService = RetrofitClient.getApiService();
 
         Call<List<Producto>> call = apiService.listarProductos();
@@ -84,7 +87,7 @@ public class CatalogActivity extends AppCompatActivity
             public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     List<Producto> productos = response.body();
-                    productAdapter = new ProductAdapter(productos);
+                    productAdapter = new ProductAdapter(CatalogActivity.this, productos, apiService, token);
                     recyclerCatalog.setAdapter(productAdapter);
                 } else {
                     Toast.makeText(CatalogActivity.this, "Error al obtener productos", Toast.LENGTH_SHORT).show();

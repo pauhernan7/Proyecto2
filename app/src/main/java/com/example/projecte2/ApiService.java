@@ -2,6 +2,7 @@ package com.example.projecte2;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
@@ -35,7 +36,8 @@ public interface ApiService {
     Call<Producto> actualizarProducto(@Path("id") int id, @Body Producto producto, @Header("Authorization") String token);
 
     @DELETE("api/app/productos/{id}/")
-    Call<Void> eliminarProducto(@Path("id") int id, @Header("Authorization") String token);
+    Call<ResponseBody> eliminarProducto(@Path("id") int id, @Header("Authorization") String token);
+
 
 }
 
