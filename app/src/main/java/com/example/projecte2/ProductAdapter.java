@@ -79,16 +79,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
 
+
         holder.btnEditar.setOnClickListener(v -> {
             Intent intent = new Intent(context, EditarProductoActivity.class);
-            intent.putExtra("producto_id", producto.getId());
-            intent.putExtra("nombre", producto.getNombre());
-            intent.putExtra("descripcion", producto.getDescripcion());
-            intent.putExtra("precio", producto.getPrecio());
-            intent.putExtra("stock", producto.getStock());
-            intent.putExtra("categoria", producto.getCategoria());
+            intent.putExtra("producto", producto); // el objeto completo
             context.startActivity(intent);
         });
+
 
         holder.btnEliminar.setOnClickListener(v -> {
             new AlertDialog.Builder(context)

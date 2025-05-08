@@ -1,13 +1,59 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:padding="16dp">
 
-    <EditText android:id="@+id/etNombre" android:hint="Nombre" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/etDescripcion" android:hint="Descripción" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/etPrecio" android:hint="Precio" android:inputType="numberDecimal" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/etStock" android:hint="Stock" android:inputType="number" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/etCategoria" android:hint="Categoría" android:layout_width="match_parent" android:layout_height="wrap_content"/>
-    <Button android:id="@+id/btnGuardar" android:text="Guardar cambios" android:layout_width="match_parent" android:layout_height="wrap_content" />
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:hint="Nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:hint="Descripción"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etPrecio"
+            android:hint="Precio"
+            android:inputType="numberDecimal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/etStock"
+            android:hint="Stock"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/ivImagenProducto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="16dp"
+            android:contentDescription="Vista previa imagen" />
+
+        <Button
+            android:id="@+id/btnSeleccionarImagen"
+            android:text="Seleccionar nueva imagen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btnGuardarCambios"
+            android:text="Guardar cambios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+    </LinearLayout>
+</ScrollView>
