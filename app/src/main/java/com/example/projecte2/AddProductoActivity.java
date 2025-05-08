@@ -29,7 +29,7 @@ public class AddProductoActivity extends AppCompatActivity {
     private ImageView ivImagenProducto;
     private Uri selectedImageUri = null;
 
-    private EditText etNombre, etDescripcion, etPrecio, etStock;
+    private EditText etNombre, etDescripcion, etPrecio, etStock, etCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class AddProductoActivity extends AppCompatActivity {
         etDescripcion = findViewById(R.id.etDescripcion);
         etPrecio = findViewById(R.id.etPrecio);
         etStock = findViewById(R.id.etStock);
+        etCategoria = findViewById(R.id.etCategoria);
         ivImagenProducto = findViewById(R.id.ivImagenProducto);
         Button btnSeleccionarImagen = findViewById(R.id.btnSeleccionarImagen);
         Button btnGuardar = findViewById(R.id.btnGuardar);
@@ -94,7 +95,7 @@ public class AddProductoActivity extends AppCompatActivity {
         String descripcion = etDescripcion.getText().toString();
         double precio = Double.parseDouble(etPrecio.getText().toString());
         int stock = Integer.parseInt(etStock.getText().toString());
-        String categoria = "Electrónica";
+        String categoria = etCategoria.getText().toString();
         int tiendaId = 1;
 
         Producto nuevoProducto = new Producto();

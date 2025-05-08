@@ -52,9 +52,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Producto producto = productos.get(position);
 
-        holder.tvNombre.setText(producto.getNombre());
-        holder.tvDescripcion.setText(producto.getDescripcion());
-        holder.tvPrecio.setText(String.format("%.2f €", producto.getPrecio()));
+        holder.tvNombre.setText("Nom: " + producto.getNombre());
+        holder.tvDescripcion.setText("Descripció: " + producto.getDescripcion());
+        holder.tvPrecio.setText("Preu: " + producto.getPrecio() + " €");
+        holder.tvCategoria.setText("Categoria: " + producto.getCategoria());
 
         // Obtener la imagen codificada en base64 desde SharedPreferences
         SharedPreferences prefs = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
@@ -154,7 +155,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     static class ProductViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombre, tvDescripcion, tvPrecio;
+        TextView tvNombre, tvDescripcion, tvPrecio, tvCategoria;
         Button btnEditar, btnEliminar;
         ImageView ivImagenProducto;
 
@@ -163,6 +164,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvDescripcion = itemView.findViewById(R.id.tvDescripcion);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
+            tvCategoria = itemView.findViewById(R.id.tvCategoria);
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
             ivImagenProducto = itemView.findViewById(R.id.ivImagenProducto); // Asegúrate de que este ID existe en item_producto.xml

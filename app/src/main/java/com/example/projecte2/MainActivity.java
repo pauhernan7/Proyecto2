@@ -2,7 +2,6 @@ package com.example.projecte2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,6 +9,8 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+
+
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                         startActivity(intent);
                     } else {
-                        Intent intent = new Intent(MainActivity.this, CatalogActivity.class);
+                        Intent intent = new Intent(MainActivity.this, CatalogoClienteActivity.class);
                         startActivity(intent);
                     }
                     finish();  // Cerrar MainActivity

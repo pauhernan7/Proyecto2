@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.example.projecte2.MainActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class SupportActivity extends AppCompatActivity
