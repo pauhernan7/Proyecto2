@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -72,6 +73,19 @@ public class CatalogActivity extends AppCompatActivity
         recyclerCatalog.setLayoutManager(new LinearLayoutManager(this));
 
         // Aquí configurarías tu RecyclerView para el catálogo
+        setupCatalog();
+
+        Button btnAddProducto = findViewById(R.id.btnAddProducto);
+        btnAddProducto.setOnClickListener(v -> {
+            Intent intent = new Intent(CatalogActivity.this, AddProductoActivity.class);
+            startActivity(intent);
+        });
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         setupCatalog();
     }
 
@@ -149,4 +163,32 @@ public class CatalogActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
+
+    public void recargarDatosDesdeServidor() {
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", "");
+
+        ApiService apiService = RetrofitClient.getApiService();
+
+        Call<List<Producto>> call = apiService.listarProductos();
+        call.enqueue(new Callback<List<Producto>>() {
+            @Override
+            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    if (productAdapter != null) {
+                        productAdapter.updateData(response.body());
+                    } else {
+                        productAdapter = new ProductAdapter(CatalogActivity.this, response.body(), apiService, token);
+                        recyclerCatalog.setAdapter(productAdapter);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Producto>> call, Throwable t) {
+                Toast.makeText(CatalogActivity.this, "Error al recargar productos", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 }

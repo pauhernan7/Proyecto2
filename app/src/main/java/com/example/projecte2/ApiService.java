@@ -35,9 +35,17 @@ public interface ApiService {
     @PUT("api/app/productos/{id}/")
     Call<Producto> actualizarProducto(@Path("id") int id, @Body Producto producto, @Header("Authorization") String token);
 
-    @DELETE("api/app/productos/{id}/")
-    Call<ResponseBody> eliminarProducto(@Path("id") int id, @Header("Authorization") String token);
+    @DELETE("api/app/productos/{id}")
+    Call<ResponseBody> eliminarProducto(
+            @Path("id") int id,
+            @Header("Authorization") String authToken
+    );
 
+    @POST("api/app/productos/crear/")
+    Call<Producto> crearProducto(
+            @Header("Authorization") String token,
+            @Body Producto producto
+    );
 
 }
 

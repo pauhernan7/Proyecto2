@@ -1,5 +1,7 @@
 package com.example.projecte2;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -21,9 +21,9 @@ import retrofit2.Response;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private final List<Producto> productos;
-    private ApiService apiService;
-    private Context context;
-    private String token;
+    private final ApiService apiService;
+    private final Context context;
+    private final String token;
 
     public ProductAdapter(Context context, List<Producto> productos, ApiService apiService, String token) {
         this.context = context;
@@ -35,60 +35,66 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     @NonNull
     @Override
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.item_producto, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_producto, parent, false);
         return new ProductViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
         Producto producto = productos.get(position);
+
         holder.tvNombre.setText(producto.getNombre());
         holder.tvDescripcion.setText(producto.getDescripcion());
         holder.tvPrecio.setText(String.format("%.2f €", producto.getPrecio()));
 
-        holder.btnEditar.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(), "Editar: " + producto.getNombre(), Toast.LENGTH_SHORT).show();
-            // Aquí puedes abrir una nueva actividad o mostrar un diálogo para editar
-        });
-    
+        holder.btnEditar.setOnClickListener(v ->
+                Toast.makeText(v.getContext(), "Editar: " + producto.getNombre(), Toast.LENGTH_SHORT).show()
+        );
+
         holder.btnEliminar.setOnClickListener(v -> {
-            Log.d("TOKEN_DEBUG", "Token antes de eliminar: " + token);
-            String authHeader = "Bearer " + token;
+            new AlertDialog.Builder(context)
+                    .setTitle("Eliminar producto")
+                    .setMessage("¿Estás seguro de eliminar este producto?")
+                    .setPositiveButton("Eliminar", (dialog, which) -> eliminarProducto(holder.getAdapterPosition(), producto.getId()))
+                    .setNegativeButton("Cancelar", null)
+                    .show();
+        });
+    }
 
-            apiService.eliminarProducto(producto.getId(), authHeader).enqueue(new Callback<ResponseBody>() {
-                @Override
-                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                    Log.d("DELETE_DEBUG", "Código de respuesta: " + response.code());
+    private void eliminarProducto(int position, int productoId) {
+        if (position == RecyclerView.NO_POSITION) return;
 
-                    if (response.isSuccessful()) {
-                        Toast.makeText(context, "Producte eliminat", Toast.LENGTH_SHORT).show();
+        ProgressDialog progressDialog = new ProgressDialog(context);
+        progressDialog.setMessage("Eliminando...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
 
-                        // Buscar el índice del producto por ID
-                        int index = -1;
-                        for (int i = 0; i < productos.size(); i++) {
-                            if (productos.get(i).getId() == producto.getId()) {
-                                index = i;
-                                break;
-                            }
-                        }
+        String authHeader = "Bearer " + token;
+        Log.d("DEBUG", "Auth Header: " + authHeader);
 
-                        if (index != -1) {
-                            productos.remove(index);
-                            notifyItemRemoved(index);
-                        } else {
-                            notifyDataSetChanged(); // fallback
-                        }
-                    } else {
-                        Toast.makeText(context, "Error al eliminar: " + response.code(), Toast.LENGTH_SHORT).show();
-                    }
+
+        apiService.eliminarProducto(productoId, authHeader).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                Log.d("RESPONSE_CODE", "Código de respuesta: " + response.code());
+
+                progressDialog.dismiss();
+
+                if (response.isSuccessful()) {
+                    Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show();
+                    ((CatalogActivity) context).recargarDatosDesdeServidor(); // Esto ya se encarga de refrescar el RecyclerView
+                } else {
+                    Toast.makeText(context, "Error del servidor al eliminar", Toast.LENGTH_SHORT).show();
+                    Log.e("ERROR_DELETE", "Código: " + response.code());
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(context, "Error de connexió: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                progressDialog.dismiss();
+                Toast.makeText(context, "Fallo de conexión", Toast.LENGTH_SHORT).show();
+                Log.e("ERROR_DELETE", "onFailure", t);
+            }
         });
     }
 
@@ -109,5 +115,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
+    }
+
+    public void updateData(List<Producto> nuevosProductos) {
+        productos.clear();
+        productos.addAll(nuevosProductos);
+        notifyDataSetChanged();
     }
 }

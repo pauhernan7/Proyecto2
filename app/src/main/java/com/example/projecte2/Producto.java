@@ -1,6 +1,8 @@
 package com.example.projecte2;
 
-public class Producto {
+import java.io.Serializable;
+
+public class Producto implements Serializable {
 
     private int id;
     private String nombre;
@@ -12,14 +14,14 @@ public class Producto {
 
     public Producto() {}
 
-    public Producto(int id, String nombre, String descripcion, double precio, int stock, String categoria, int tienda_id) {
+    public Producto(int id, String nombre, String descripcion, double precio, int stock, String categoria) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.precio = precio;
         this.stock = stock;
         this.categoria = categoria;
-        this.tienda_id = tienda_id;
+        this.tienda_id = 1;
     }
 
     public int getId() { return id; }
