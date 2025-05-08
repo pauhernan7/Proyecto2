@@ -14,6 +14,14 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- Imagen del producto -->
+        <ImageView
+            android:id="@+id/ivImagenProducto"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
+            android:scaleType="centerCrop"/>
+
         <TextView
             android:id="@+id/tvNombre"
             android:layout_width="match_parent"

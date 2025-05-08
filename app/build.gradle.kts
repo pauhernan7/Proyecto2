@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.gson)
     implementation(libs.okhttp.logging)
     implementation(libs.cardview)
+    implementation(libs.glide)
+    annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

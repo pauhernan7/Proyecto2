@@ -7,10 +7,12 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
@@ -18,6 +20,8 @@ import java.io.InputStream;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import android.util.Base64;
 
 public class AddProductoActivity extends AppCompatActivity {
 
@@ -58,13 +62,40 @@ public class AddProductoActivity extends AppCompatActivity {
         }
     }
 
+    private String convertirImagenABase64(Uri imageUri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(imageUri);
+
+            // Decodificar con opciones para reducir el tamaño
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inSampleSize = 2; // Reduce la imagen a la mitad
+
+            Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
+
+            // Redimensionar si es necesario (ejemplo: máximo 800px de ancho)
+            int maxWidth = 800;
+            if (bitmap.getWidth() > maxWidth) {
+                int newHeight = (int) (bitmap.getHeight() * ((float) maxWidth / bitmap.getWidth()));
+                bitmap = Bitmap.createScaledBitmap(bitmap, maxWidth, newHeight, true);
+            }
+
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, byteArrayOutputStream); // Calidad al 80%
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            return Base64.encodeToString(byteArray, Base64.DEFAULT);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     private void guardarProducto() {
         String nombre = etNombre.getText().toString();
         String descripcion = etDescripcion.getText().toString();
         double precio = Double.parseDouble(etPrecio.getText().toString());
         int stock = Integer.parseInt(etStock.getText().toString());
-        String categoria = "Electrónica"; // o spinner
-        int tiendaId = 1; // O el ID de tienda del usuario
+        String categoria = "Electrónica";
+        int tiendaId = 1;
 
         Producto nuevoProducto = new Producto();
         nuevoProducto.setNombre(nombre);
@@ -74,8 +105,16 @@ public class AddProductoActivity extends AppCompatActivity {
         nuevoProducto.setCategoria(categoria);
         nuevoProducto.setTienda_id(tiendaId);
 
+        // Convertir imagen seleccionada a base64
+        final String imagenBase64;
+        if (selectedImageUri != null) {
+            imagenBase64 = convertirImagenABase64(selectedImageUri);
+        } else {
+            imagenBase64 = null;
+        }
+
         SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
-        String token = prefs.getString("token", ""); // <- este método lo defines tú
+        String token = prefs.getString("token", "");
         String authHeader = "Bearer " + token;
 
         ApiService apiService = RetrofitClient.getApiService();
@@ -87,20 +126,11 @@ public class AddProductoActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     Producto creado = response.body();
 
-                    // Guardar imagen localmente
-                    if (selectedImageUri != null) {
-                        try {
-                            InputStream inputStream = getContentResolver().openInputStream(selectedImageUri);
-                            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-
-                            String filename = "producto_" + creado.getId() + ".jpg";
-                            File file = new File(getFilesDir(), filename);
-                            FileOutputStream fos = new FileOutputStream(file);
-                            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-                            fos.close();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                    // Guardar la imagen SOLO después de obtener el ID del producto
+                    if (imagenBase64 != null && creado != null) {
+                        SharedPreferences.Editor editor = prefs.edit();
+                        editor.putString("imagen_producto_" + creado.getId(), imagenBase64);
+                        editor.apply();
                     }
 
                     // Volver con resultado a CatalogActivity
@@ -122,3 +152,4 @@ public class AddProductoActivity extends AppCompatActivity {
     }
 
 }
+

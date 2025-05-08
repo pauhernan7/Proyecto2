@@ -3,15 +3,23 @@ package com.example.projecte2;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,6 +55,29 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         holder.tvDescripcion.setText(producto.getDescripcion());
         holder.tvPrecio.setText(String.format("%.2f €", producto.getPrecio()));
 
+        // Obtener la imagen codificada en base64 desde SharedPreferences
+        SharedPreferences prefs = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String encodedImage = prefs.getString("imagen_producto_" + producto.getId(), null);
+
+        if (encodedImage != null) {
+            byte[] decodedString = Base64.decode(encodedImage, Base64.DEFAULT);
+
+            // Cargar la imagen con Glide
+            Glide.with(context)
+                    .asBitmap()
+                    .load(decodedString)
+                    .placeholder(R.drawable.logo_empresa) // Imagen mientras carga
+                    .error(R.drawable.logo_empresa) // Imagen si hay error
+                    .into(holder.ivImagenProducto);
+        } else {
+            // Si no hay imagen, mostrar un placeholder
+            Glide.with(context)
+                    .load(R.drawable.logo_empresa)
+                    .into(holder.ivImagenProducto);
+            Log.d("ProductAdapter", "No se encontró imagen codificada para el producto con ID: " + producto.getId());
+        }
+
+
         holder.btnEditar.setOnClickListener(v ->
                 Toast.makeText(v.getContext(), "Editar: " + producto.getNombre(), Toast.LENGTH_SHORT).show()
         );
@@ -60,6 +91,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                     .show();
         });
     }
+
 
     private void eliminarProducto(int position, int productoId) {
         if (position == RecyclerView.NO_POSITION) return;
@@ -106,6 +138,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     static class ProductViewHolder extends RecyclerView.ViewHolder {
         TextView tvNombre, tvDescripcion, tvPrecio;
         Button btnEditar, btnEliminar;
+        ImageView ivImagenProducto;
 
         public ProductViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,6 +147,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
+            ivImagenProducto = itemView.findViewById(R.id.ivImagenProducto); // Asegúrate de que este ID existe en item_producto.xml
         }
     }
 
