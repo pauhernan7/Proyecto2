@@ -103,32 +103,45 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         String authHeader = "Bearer " + token;
         Log.d("DEBUG", "Auth Header: " + authHeader);
-
+        Log.d("DEBUG", "Eliminando producto ID: " + productoId);
 
         apiService.eliminarProducto(productoId, authHeader).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                progressDialog.dismiss();
                 Log.d("RESPONSE_CODE", "Código de respuesta: " + response.code());
 
-                progressDialog.dismiss();
+                if (response.isSuccessful() || response.code() == 204) {
+                        Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show();
+                        productos.remove(position); // Elimina el producto de la lista
+                        notifyItemRemoved(position); // Notifica al adapter que se eliminó
+                        notifyItemRangeChanged(position, productos.size()); // Actualiza el rango de la lista
 
-                if (response.isSuccessful()) {
-                    Toast.makeText(context, "Producto eliminado", Toast.LENGTH_SHORT).show();
-                    ((CatalogActivity) context).recargarDatosDesdeServidor(); // Esto ya se encarga de refrescar el RecyclerView
+
                 } else {
+                    String errorBody = "";
+                    try {
+                        if (response.errorBody() != null) {
+                            errorBody = response.errorBody().string();
+                        }
+                    } catch (Exception e) {
+                        Log.e("ERROR_PARSING", "No se pudo leer el cuerpo de error", e);
+                    }
+
+                    Log.e("ERROR_DELETE", "Error al eliminar. Código: " + response.code() + " | Body: " + errorBody);
                     Toast.makeText(context, "Error del servidor al eliminar", Toast.LENGTH_SHORT).show();
-                    Log.e("ERROR_DELETE", "Código: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 progressDialog.dismiss();
+                Log.e("ERROR_DELETE", "Fallo de conexión", t);
                 Toast.makeText(context, "Fallo de conexión", Toast.LENGTH_SHORT).show();
-                Log.e("ERROR_DELETE", "onFailure", t);
             }
         });
     }
+
 
     @Override
     public int getItemCount() {
