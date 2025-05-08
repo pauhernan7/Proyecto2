@@ -16,7 +16,9 @@
         android:theme="@style/Theme.Projecte2"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
+        <activity
+            android:name=".EditarProductoActivity"
+            android:exported="false" />
         <activity
             android:name=".AddProductoActivity"
             android:exported="false" />

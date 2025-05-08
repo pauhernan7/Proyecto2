@@ -3,6 +3,7 @@ package com.example.projecte2;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -78,9 +79,16 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
 
 
-        holder.btnEditar.setOnClickListener(v ->
-                Toast.makeText(v.getContext(), "Editar: " + producto.getNombre(), Toast.LENGTH_SHORT).show()
-        );
+        holder.btnEditar.setOnClickListener(v -> {
+            Intent intent = new Intent(context, EditarProductoActivity.class);
+            intent.putExtra("producto_id", producto.getId());
+            intent.putExtra("nombre", producto.getNombre());
+            intent.putExtra("descripcion", producto.getDescripcion());
+            intent.putExtra("precio", producto.getPrecio());
+            intent.putExtra("stock", producto.getStock());
+            intent.putExtra("categoria", producto.getCategoria());
+            context.startActivity(intent);
+        });
 
         holder.btnEliminar.setOnClickListener(v -> {
             new AlertDialog.Builder(context)
