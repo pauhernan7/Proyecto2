@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         Intent intent = new Intent(MainActivity.this, DashboardActivity.class);
                         startActivity(intent);
                     } else {
-                        Intent intent = new Intent(MainActivity.this, CatalogoClienteActivity.class);
+                        Intent intent = new Intent(MainActivity.this, ClienteCatalogActivity.class);
                         startActivity(intent);
                     }
                     finish();  // Cerrar MainActivity
