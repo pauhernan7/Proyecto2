@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -12,86 +14,100 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ClienteCatalogActivity extends AppCompatActivity
-        implements HeaderFragment.OnMenuClickListener,
-        NavigationView.OnNavigationItemSelectedListener {
+public class CrearTicketActivity extends AppCompatActivity
+        implements HeaderFragment.OnMenuClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-    private RecyclerView recyclerCatalog;
-    private ProductoClienteAdapter productoAdapter;
+    private EditText editTextAsunto, editTextMensaje;
+    private Button btnEnviar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cliente_catalog); // Asegúrate de tener este layout correctamente creado
+        setContentView(R.layout.activity_crear_ticket);
 
-        // Configurar Navigation Drawer
+        // Configurar el Navigation Drawer
         drawerLayout = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        // Configurar header del NavigationView
+        // Obtener el header del NavigationView
         View headerView = navigationView.getHeaderView(0);
         TextView tvRol = headerView.findViewById(R.id.tvRol);
         TextView tvEmail = headerView.findViewById(R.id.tvEmail);
-
         SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
-        String rol = prefs.getString("rol", "No definido");
-        String email = prefs.getString("email", "correo@ejemplo.com");
-        tvRol.setText(rol);
-        tvEmail.setText(email);
+        tvRol.setText(prefs.getString("rol", "No definido"));
+        tvEmail.setText(prefs.getString("email", "correo@ejemplo.com"));
 
         // Configurar HeaderFragment
-        HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager().findFragmentById(R.id.headerFragment);
+        setupHeaderFragment();
+
+        editTextAsunto = findViewById(R.id.etAsunto);
+        editTextMensaje = findViewById(R.id.etMensaje);
+        btnEnviar = findViewById(R.id.btnEnviar);
+
+        btnEnviar.setOnClickListener(view -> {
+            String asunto = editTextAsunto.getText().toString().trim();
+            String mensaje = editTextMensaje.getText().toString().trim();
+
+            if (asunto.isEmpty() || mensaje.isEmpty()) {
+                Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            enviarTicket(asunto, mensaje);
+        });
+    }
+
+    private void setupHeaderFragment() {
+        HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.headerFragment);
+
         if (headerFragment != null) {
             headerFragment.setOnMenuClickListener(this);
-            headerFragment.setTitle("Catàleg");
+            headerFragment.setTitle("Crear Ticket");
+        }
+    }
+
+    private void enviarTicket(String asunto, String mensaje) {
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", null);
+
+        if (token == null) {
+            Toast.makeText(this, "Token no encontrado", Toast.LENGTH_SHORT).show();
+            return;
         }
 
-        recyclerCatalog = findViewById(R.id.recyclerCatalog);
-        recyclerCatalog.setLayoutManager(new LinearLayoutManager(this));
 
-        // Cargar catálogo
-        setupCatalog();
-    }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setupCatalog();
-    }
+        ApiService api = RetrofitClient.getApiService();
+        TicketRequest request = new TicketRequest(asunto, mensaje);
+        Call<TicketResponse> call = api.crearTicket(request, "Bearer " + token);
 
-    private void setupCatalog() {
-        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
-        ApiService apiService = RetrofitClient.getApiService();
 
-        Call<List<Producto>> call = apiService.listarProductos();
-        call.enqueue(new Callback<List<Producto>>() {
+        call.enqueue(new Callback<TicketResponse>() {
             @Override
-            public void onResponse(Call<List<Producto>> call, Response<List<Producto>> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    List<Producto> productos = response.body();
-                    productoAdapter = new ProductoClienteAdapter(productos, ClienteCatalogActivity.this);
-                    recyclerCatalog.setAdapter(productoAdapter);
+            public void onResponse(Call<TicketResponse> call, Response<TicketResponse> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(CrearTicketActivity.this, "Ticket creado correctamente", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(ClienteCatalogActivity.this, "Error al obtener productos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CrearTicketActivity.this, "Error al crear el ticket", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Producto>> call, Throwable t) {
-                Toast.makeText(ClienteCatalogActivity.this, "Fallo en la conexión", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<TicketResponse> call, Throwable t) {
+                Toast.makeText(CrearTicketActivity.this, "Fallo de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
