@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorBackground">#F5F5F5</color>
     <color name="colorDivider">#EEEEEE</color>
+    <color name="colorLightGray">#F5F5F5</color>
 
 
 </resources>

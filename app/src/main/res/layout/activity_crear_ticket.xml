@@ -54,119 +54,186 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="8dp">
+                        android:orientation="vertical">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <!-- Pregunta 1 -->
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="8dp">
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/question1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="16dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?attr/selectableItemBackground">
+
+                                <TextView
+                                    android:id="@+id/tvQuestion1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="1. ¿Cómo puedo resetear mi contraseña?"
+                                    android:textColor="@android:color/black"/>
+
+                                <ImageView
+                                    android:id="@+id/ivArrow1"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_chevron_right"/>
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tvQuestion1"
-                                android:layout_width="0dp"
+                                android:id="@+id/tvAnswer1"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="1. ¿Cómo puedo resetear mi contraseña?"
-                                android:textColor="@android:color/black"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                                android:padding="16dp"
+                                android:background="@color/colorLightGray"
+                                android:visibility="gone"
+                                android:text="Para resetear tu contraseña, ve a Configuración > Seguridad y selecciona 'Olvidé mi contraseña'. Recibirás un email con instrucciones."/>
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/burguer"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/tvQuestion1"
-                                app:layout_constraintBottom_toBottomOf="@id/tvQuestion1"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorDivider"/>
+                        </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginVertical="4dp"
-                            android:background="@color/colorDivider"/>
-
-                        <!-- Repite el mismo patrón para las otras 3 preguntas -->
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <!-- Pregunta 2 -->
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="8dp">
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/question2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="16dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?attr/selectableItemBackground">
+
+                                <TextView
+                                    android:id="@+id/tvQuestion2"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="2. ¿Dónde encuentro mis facturas?"
+                                    android:textColor="@android:color/black"/>
+
+                                <ImageView
+                                    android:id="@+id/ivArrow2"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_chevron_right"/>
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tvQuestion2"
-                                android:layout_width="0dp"
+                                android:id="@+id/tvAnswer2"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="2. ¿Dónde encuentro mis facturas?"
-                                android:textColor="@android:color/black"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                                android:padding="16dp"
+                                android:background="@color/colorLightGray"
+                                android:visibility="gone"
+                                android:text="Todas tus facturas están disponibles en la sección 'Mis Facturas' de la aplicación. También puedes descargarlas en formato PDF."/>
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/burguer"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/tvQuestion2"
-                                app:layout_constraintBottom_toBottomOf="@id/tvQuestion2"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorDivider"/>
+                        </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginVertical="4dp"
-                            android:background="@color/colorDivider"/>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <!-- Pregunta 3 -->
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="8dp">
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/question3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="16dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?attr/selectableItemBackground">
+
+                                <TextView
+                                    android:id="@+id/tvQuestion3"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="3. ¿Cuáles son los horarios de atención?"
+                                    android:textColor="@android:color/black"/>
+
+                                <ImageView
+                                    android:id="@+id/ivArrow3"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_chevron_right"/>
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tvQuestion3"
-                                android:layout_width="0dp"
+                                android:id="@+id/tvAnswer3"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="3. ¿Cuáles son los horarios de atención?"
-                                android:textColor="@android:color/black"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
+                                android:padding="16dp"
+                                android:background="@color/colorLightGray"
+                                android:visibility="gone"
+                                android:text="Nuestro servicio de atención al cliente está disponible de lunes a viernes de 8:00 am a 6:00 pm y sábados de 9:00 am a 1:00 pm."/>
 
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/burguer"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/tvQuestion3"
-                                app:layout_constraintBottom_toBottomOf="@id/tvQuestion3"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@color/colorDivider"/>
+                        </LinearLayout>
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="1dp"
-                            android:layout_marginVertical="4dp"
-                            android:background="@color/colorDivider"/>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <!-- Pregunta 4 -->
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="8dp">
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/question4"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="16dp"
+                                android:clickable="true"
+                                android:focusable="true"
+                                android:background="?attr/selectableItemBackground">
+
+                                <TextView
+                                    android:id="@+id/tvQuestion4"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="4. ¿Cómo cambio mi plan de servicio?"
+                                    android:textColor="@android:color/black"/>
+
+                                <ImageView
+                                    android:id="@+id/ivArrow4"
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    android:src="@drawable/ic_chevron_right"/>
+                            </LinearLayout>
 
                             <TextView
-                                android:id="@+id/tvQuestion4"
-                                android:layout_width="0dp"
+                                android:id="@+id/tvAnswer4"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="4. ¿Cómo cambio mi plan de servicio?"
-                                android:textColor="@android:color/black"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"/>
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:src="@drawable/burguer"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="@id/tvQuestion4"
-                                app:layout_constraintBottom_toBottomOf="@id/tvQuestion4"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:padding="16dp"
+                                android:background="@color/colorLightGray"
+                                android:visibility="gone"
+                                android:text="Puedes cambiar tu plan en cualquier momento desde la sección 'Mi Cuenta' > 'Planes de Servicio'. Los cambios se aplicarán en tu próximo ciclo de facturación."/>
+                        </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
