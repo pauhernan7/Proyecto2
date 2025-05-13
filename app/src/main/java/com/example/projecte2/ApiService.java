@@ -47,7 +47,7 @@ public interface ApiService {
             @Body Producto producto
     );
 
-    @POST("/api/carrito/añadir/{usuario_id}/{tienda_id}/")
+    @POST("api/carrito/añadir/{usuario_id}/{tienda_id}/")
     Call<Void> agregarAlCarrito(
             @Header("Authorization") String token,  // Para la autorización con Bearer
             @Path("usuario_id") int usuarioId,  // El ID del usuario
@@ -58,6 +58,16 @@ public interface ApiService {
 
     @GET("api/carrito/{usuario_id}/")
     Call<CarritoResponse> verCarrito(@Path("usuario_id") int usuarioId);
+
+
+    @POST("api/soporte/")
+    Call<TicketResponse> crearTicket(
+            @Body TicketRequest ticket,
+            @Header("Authorization") String token
+    );
+
+    @GET("api/soporte/")
+    Call<List<TicketResponse>> getTodosLosTickets(@Header("Authorization") String token);
 
 
 }

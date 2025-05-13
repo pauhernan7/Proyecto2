@@ -12,14 +12,26 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projecte2.MainActivity;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SupportActivity extends AppCompatActivity
         implements HeaderFragment.OnMenuClickListener, NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private RecyclerView recyclerView;
+    private TicketAdapter ticketAdapter;
+    private List<TicketResponse> ticketList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +61,46 @@ public class SupportActivity extends AppCompatActivity
 
         // Configurar el HeaderFragment
         setupHeaderFragment();
+
+        recyclerView = findViewById(R.id.recyclerViewTickets);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        ticketAdapter = new TicketAdapter();
+        recyclerView.setAdapter(ticketAdapter);
+
+        cargarTickets(); // Llamamos a la API
+
     }
+
+    private void cargarTickets() {
+        SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", null);
+
+        if (token == null) {
+            Toast.makeText(this, "Token no encontrado", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        ApiService apiService = RetrofitClient.getApiService();
+        Call<List<TicketResponse>> call = apiService.getTodosLosTickets("Bearer " + token);
+
+        call.enqueue(new Callback<List<TicketResponse>>() {
+            @Override
+            public void onResponse(Call<List<TicketResponse>> call, Response<List<TicketResponse>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    ticketList = response.body();
+                    ticketAdapter.setTickets(ticketList);
+                } else {
+                    Toast.makeText(SupportActivity.this, "Error al obtener los tickets", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<TicketResponse>> call, Throwable t) {
+                Toast.makeText(SupportActivity.this, "Error de red: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private void setupHeaderFragment() {
         HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager()
