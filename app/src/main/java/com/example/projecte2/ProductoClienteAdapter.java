@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoClienteAdapter.ProductoViewHolder> {
 
@@ -59,11 +62,36 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
         }
 
         holder.btnComprar.setOnClickListener(v -> {
-            // Ir a pantalla de compra (puedes modificar el Intent si usas otra activity)
-            Intent intent = new Intent(context, ComprarProductoActivity.class);
-            intent.putExtra("producto_id", producto.getId());
-            context.startActivity(intent);
+            // Obtener el token de SharedPreferences
+            SharedPreferences prefss = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+            String token = prefss.getString("token", "");
+            int usuarioId = prefs.getInt("usuario_id", 0);  // Recupera el ID del usuario
+            int tiendaId = producto.getTienda_id();
+
+            // Crear el objeto del item de carrito
+            ItemCarrito item = new ItemCarrito(producto.getId(), 1); // cantidad 1 por defecto
+
+            // Hacer la llamada a la API para añadir al carrito
+            ApiService apiService = RetrofitClient.getApiService();
+            Call<Void> call = apiService.agregarAlCarrito("Bearer " + token, usuarioId, tiendaId, item);
+            call.enqueue(new retrofit2.Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "Afegit al carret!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, "Error al afegir al carret", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Toast.makeText(context, "Fallo de connexió", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
+
+
     }
 
     @Override
@@ -87,4 +115,6 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
             btnComprar = itemView.findViewById(R.id.btnComprar);
         }
     }
+
+
 }
