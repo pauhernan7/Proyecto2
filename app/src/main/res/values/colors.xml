@@ -7,6 +7,22 @@
     <color name="colorBackground">#F5F5F5</color>
     <color name="colorDivider">#EEEEEE</color>
     <color name="colorLightGray">#F5F5F5</color>
+    <color name="colorOnSurface">#1C1B1F</color>
+    <color name="colorSurfaceVariant">#E7E0EC</color>
+    <color name="colorOutline">#79747E</color>
+    <color name="colorSurfaceContainerLowest">#FFFBFE</color>
+    <!-- Rojo para errores/alertas -->
+    <color name="red">#F44336</color>
+    <color name="red_dark">#D32F2F</color>
+    <color name="red_light">#FFCDD2</color>
+
+    <!-- Verde para éxito/confirmaciones -->
+    <color name="green">#4CAF50</color>
+    <color name="green_dark">#388E3C</color>
+    <color name="green_light">#C8E6C9</color>
+
+    <color name="editButtonBackground">#2196F3</color> <!-- Azul vivo -->
+
 
 
 </resources>

@@ -68,6 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Editar"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/editButtonBackground"
                 android:layout_marginEnd="8dp"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
@@ -76,6 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Eliminar"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/red"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
         </LinearLayout>
     </LinearLayout>
