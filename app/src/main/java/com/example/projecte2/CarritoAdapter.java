@@ -1,12 +1,17 @@
 package com.example.projecte2;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHolder> {
@@ -35,6 +40,19 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         holder.tvCantidad.setText("Quantitat: " + producto.getCantidad());
         holder.tvSubtotal.setText("Subtotal: " + producto.getSubtotal() + "€");
 
+        SharedPreferences prefs = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String imagenBase64 = prefs.getString("imagen_producto_" + producto.getId(), null);
+
+        if (imagenBase64 != null && !imagenBase64.isEmpty()) {
+            String url = "data:image/jpeg;base64," + imagenBase64;
+            Glide.with(context)
+                    .load(url)
+                    .placeholder(R.drawable.logo_empresa)
+                    .into(holder.ivProducto);
+        } else {
+            holder.ivProducto.setImageResource(R.drawable.logo_empresa);
+        }
+
     }
 
     @Override
@@ -43,10 +61,12 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView ivProducto;  // nuevo
         TextView tvNombre, tvPrecio, tvCantidad, tvSubtotal;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            ivProducto = itemView.findViewById(R.id.ivProducto);
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvCantidad = itemView.findViewById(R.id.tvCantidad);
