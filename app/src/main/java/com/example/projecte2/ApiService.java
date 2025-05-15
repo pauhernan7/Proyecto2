@@ -28,9 +28,7 @@ public interface ApiService {
 
     @GET("api/app/productos/")
     Call<List<Producto>> listarProductos();
-
-    @POST("api/app/productos/crear/")
-    Call<Producto> crearProducto(@Body Producto producto, @Header("Authorization") String token);
+    
 
     @PUT("api/app/productos/{id}/")
     Call<Producto> actualizarProducto(@Path("id") int id, @Body Producto producto, @Header("Authorization") String token);
@@ -47,13 +45,14 @@ public interface ApiService {
             @Body Producto producto
     );
 
-    @POST("api/carrito/añadir/{usuario_id}/{tienda_id}/")
+    @POST("api/carrito/add/{usuario_id}/{tienda_id}/")
     Call<Void> agregarAlCarrito(
-            @Header("Authorization") String token,  // Para la autorización con Bearer
-            @Path("usuario_id") int usuarioId,  // El ID del usuario
-            @Path("tienda_id") int tiendaId,  // El ID de la tienda
-            @Body ItemCarrito item  // El producto que se va a añadir al carrito
+            @Header("Authorization") String token,
+            @Path("usuario_id") int usuarioId,
+            @Path("tienda_id") int tiendaId,
+            @Body ItemCarrito item
     );
+
 
 
     @GET("api/carrito/{usuario_id}/")
