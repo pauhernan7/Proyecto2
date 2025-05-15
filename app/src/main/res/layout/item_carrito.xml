@@ -25,4 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Quantitat" />
+
+    <TextView
+        android:id="@+id/tvSubtotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subtotal" />
 </LinearLayout>

@@ -63,9 +63,8 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
 
         holder.btnComprar.setOnClickListener(v -> {
             // Obtener el token de SharedPreferences
-            SharedPreferences prefss = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
-            String token = prefss.getString("token", "");
-            int usuarioId = prefs.getInt("usuario_id", 0);  // Recupera el ID del usuario
+            String token = prefs.getString("token", "");
+            int usuarioId = prefs.getInt("user_id", 0);  // Recupera el ID del usuario
             int tiendaId = producto.getTienda_id();
 
             // Crear el objeto del item de carrito

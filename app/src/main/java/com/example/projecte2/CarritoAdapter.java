@@ -33,6 +33,8 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
         holder.tvNombre.setText("Nom: " + producto.getNombre());
         holder.tvPrecio.setText("Preu: " + producto.getPrecio() + "€");
         holder.tvCantidad.setText("Quantitat: " + producto.getCantidad());
+        holder.tvSubtotal.setText("Subtotal: " + producto.getSubtotal() + "€");
+
     }
 
     @Override
@@ -41,13 +43,14 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNombre, tvPrecio, tvCantidad;
+        TextView tvNombre, tvPrecio, tvCantidad, tvSubtotal;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvNombre = itemView.findViewById(R.id.tvNombre);
             tvPrecio = itemView.findViewById(R.id.tvPrecio);
             tvCantidad = itemView.findViewById(R.id.tvCantidad);
+            tvSubtotal = itemView.findViewById(R.id.tvSubtotal);
         }
     }
 }

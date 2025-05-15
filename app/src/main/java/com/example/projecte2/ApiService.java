@@ -57,7 +57,8 @@ public interface ApiService {
 
 
     @GET("api/carrito/{usuario_id}/")
-    Call<CarritoResponse> verCarrito(@Path("usuario_id") int usuarioId);
+    Call<CarritoResponse> verCarrito(@Path("usuario_id") int usuarioId, @Header("Authorization") String authHeader);
+
 
 
     @POST("api/soporte/")

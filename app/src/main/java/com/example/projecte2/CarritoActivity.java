@@ -29,6 +29,9 @@ public class CarritoActivity extends AppCompatActivity {
 
     private void cargarCarritoDesdeServidor() {
         SharedPreferences prefs = getSharedPreferences("user_data", MODE_PRIVATE);
+        String token = prefs.getString("token", "");
+
+        String bearerToken = "Bearer " + token;
         int usuarioId = prefs.getInt("user_id", -1);  // Asegúrate de que esté guardado al iniciar sesión
 
         if (usuarioId == -1) {
@@ -37,7 +40,7 @@ public class CarritoActivity extends AppCompatActivity {
         }
 
         ApiService apiService = RetrofitClient.getApiService();
-        Call<CarritoResponse> call = apiService.verCarrito(usuarioId);
+        Call<CarritoResponse> call = apiService.verCarrito(usuarioId, bearerToken);
 
         call.enqueue(new Callback<CarritoResponse>() {
             @Override

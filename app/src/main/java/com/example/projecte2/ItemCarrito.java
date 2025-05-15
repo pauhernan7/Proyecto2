@@ -1,20 +1,24 @@
 package com.example.projecte2;
 
 public class ItemCarrito {
-    private int producto_id;
+    private int id;  // antes producto_id, ahora debe ser id para mapear JSON
     private String nombre;
     private double precio;
     private int cantidad;
+    private double subtotal;  // agregar para mapear JSON
 
+    // Constructor vacío necesario para Retrofit/Gson
+    public ItemCarrito() {}
 
-    public ItemCarrito(int productoId, int cantidad) {
-        this.producto_id = productoId;
+    public ItemCarrito(int id, int cantidad) {
+        this.id = id;
         this.cantidad = cantidad;
     }
 
-    // Getters y Setters
-    public int getProducto_id() { return producto_id; }
-    public void setProducto_id(int producto_id) { this.producto_id = producto_id; }
+
+    // Getters y setters
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
@@ -24,4 +28,7 @@ public class ItemCarrito {
 
     public int getCantidad() { return cantidad; }
     public void setCantidad(int cantidad) { this.cantidad = cantidad; }
+
+    public double getSubtotal() { return subtotal; }
+    public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
 }
