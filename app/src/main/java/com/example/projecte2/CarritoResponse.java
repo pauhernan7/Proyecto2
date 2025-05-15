@@ -6,6 +6,8 @@ public class CarritoResponse {
     private int id;  // id del carrito
     private List<ItemCarrito> productos;
     private double total;
+    private String imagenBase64; // O String urlImagen;
+
 
     public CarritoResponse() {}
 

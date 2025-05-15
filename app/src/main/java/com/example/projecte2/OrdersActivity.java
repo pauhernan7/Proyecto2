@@ -12,9 +12,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projecte2.MainActivity;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class OrdersActivity extends AppCompatActivity
         implements HeaderFragment.OnMenuClickListener, NavigationView.OnNavigationItemSelectedListener {
@@ -49,7 +57,35 @@ public class OrdersActivity extends AppCompatActivity
 
         // Configurar el HeaderFragment
         setupHeaderFragment();
+
+        // ============================
+        // Cargar pedidos desde Retrofit
+        // ============================
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerOrders);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        String token = prefs.getString("token", ""); // Asegúrate de almacenar el token previamente
+
+        ApiService apiService = RetrofitClient.getApiService();
+        apiService.getOrders("Bearer " + token).enqueue(new Callback<List<Order>>() {
+            @Override
+            public void onResponse(Call<List<Order>> call, Response<List<Order>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    OrderAdapter adapter = new OrderAdapter(response.body());
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    Toast.makeText(OrdersActivity.this, "Error al cargar pedidos", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Order>> call, Throwable t) {
+                Toast.makeText(OrdersActivity.this, "Fallo de conexión", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
 
     private void setupHeaderFragment() {
         HeaderFragment headerFragment = (HeaderFragment) getSupportFragmentManager()

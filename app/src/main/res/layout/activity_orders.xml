@@ -19,6 +19,13 @@
 
         <!-- Aquí va el contenido específico de OrdersActivity -->
         <!-- Puedes agregar un RecyclerView o cualquier otra cosa -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerOrders"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="8dp"/>
+
     </LinearLayout>
 
     <!-- Menú lateral -->

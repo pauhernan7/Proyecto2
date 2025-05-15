@@ -35,24 +35,28 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ItemCarrito producto = productos.get(position);
 
+        // Configurar los textos
         holder.tvNombre.setText("Nom: " + producto.getNombre());
         holder.tvPrecio.setText("Preu: " + producto.getPrecio() + "€");
         holder.tvCantidad.setText("Quantitat: " + producto.getCantidad());
         holder.tvSubtotal.setText("Subtotal: " + producto.getSubtotal() + "€");
 
+        // Obtener imagen desde SharedPreferences usando el ID del producto
         SharedPreferences prefs = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
         String imagenBase64 = prefs.getString("imagen_producto_" + producto.getId(), null);
 
+        // Cargar imagen con Glide
         if (imagenBase64 != null && !imagenBase64.isEmpty()) {
             String url = "data:image/jpeg;base64," + imagenBase64;
             Glide.with(context)
                     .load(url)
                     .placeholder(R.drawable.logo_empresa)
+                    .error(R.drawable.logo_empresa) // Añadido por si falla la carga
                     .into(holder.ivProducto);
         } else {
+            // Si no hay imagen, mostrar la imagen por defecto
             holder.ivProducto.setImageResource(R.drawable.logo_empresa);
         }
-
     }
 
     @Override

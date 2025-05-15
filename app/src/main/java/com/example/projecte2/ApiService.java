@@ -26,6 +26,11 @@ public interface ApiService {
     @GET("api/app/pedidos/ultimos/")
     Call<List<Order>> getUltimosOrders(@Header("Authorization") String token);
 
+    @GET("api/app/pedidos/")
+    Call<List<Order>> getOrders(@Header("Authorization") String token);
+
+
+
     @GET("api/app/productos/")
     Call<List<Producto>> listarProductos();
     

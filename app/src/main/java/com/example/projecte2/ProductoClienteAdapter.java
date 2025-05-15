@@ -20,6 +20,8 @@ import com.bumptech.glide.Glide;
 import java.util.List;
 
 import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoClienteAdapter.ProductoViewHolder> {
 
@@ -62,20 +64,20 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
         }
 
         holder.btnComprar.setOnClickListener(v -> {
-            // Obtener el token de SharedPreferences
             String token = prefs.getString("token", "");
-            int usuarioId = prefs.getInt("user_id", 0);  // Recupera el ID del usuario
+            int usuarioId = prefs.getInt("user_id", 0);
             int tiendaId = producto.getTienda_id();
 
-            // Crear el objeto del item de carrito
-            ItemCarrito item = new ItemCarrito(producto.getId(), 1); // cantidad 1 por defecto
+            ItemCarrito item = new ItemCarrito(producto.getId(), 1);
+            item.setNombre(producto.getNombre());  // Asegúrate que estos campos
+            item.setPrecio(producto.getPrecio()); // lleguen al backend
+            // Eliminamos item.setImagenBase64();
 
-            // Hacer la llamada a la API para añadir al carrito
             ApiService apiService = RetrofitClient.getApiService();
             Call<Void> call = apiService.agregarAlCarrito("Bearer " + token, usuarioId, tiendaId, item);
-            call.enqueue(new retrofit2.Callback<Void>() {
+            call.enqueue(new Callback<Void>() {
                 @Override
-                public void onResponse(Call<Void> call, retrofit2.Response<Void> response) {
+                public void onResponse(Call<Void> call, Response<Void> response) {
                     if (response.isSuccessful()) {
                         Toast.makeText(context, "Afegit al carret!", Toast.LENGTH_SHORT).show();
                     } else {

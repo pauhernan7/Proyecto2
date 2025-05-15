@@ -6,6 +6,10 @@ public class ItemCarrito {
     private double precio;
     private int cantidad;
     private double subtotal;  // agregar para mapear JSON
+    private String imagenBase64;  // <-- Nuevo campo para la imagen en base64
+
+
+
 
     // Constructor vacío necesario para Retrofit/Gson
     public ItemCarrito() {}
@@ -31,4 +35,12 @@ public class ItemCarrito {
 
     public double getSubtotal() { return subtotal; }
     public void setSubtotal(double subtotal) { this.subtotal = subtotal; }
+
+    public String getImagenBase64() {
+        return imagenBase64;
+    }
+
+    public void setImagenBase64(String imagenBase64) {
+        this.imagenBase64 = imagenBase64;
+    }
 }
