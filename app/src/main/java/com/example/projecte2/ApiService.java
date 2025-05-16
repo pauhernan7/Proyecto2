@@ -77,6 +77,16 @@ public interface ApiService {
     @PUT("api/app/pedidos/{id}/estado/{estado}/")
     Call<Void> updateOrderStatus(@Path("id") int id, @Path("estado") String estado, @Header("Authorization") String token);
 
+    @PUT("api/soporte/{id}/")
+    Call<TicketResponse> actualizarTicket(
+            @Path("id") int id,
+            @Body TicketUpdateRequest request,
+            @Header("Authorization") String token
+    );
+
+
+
+
 
 
 }

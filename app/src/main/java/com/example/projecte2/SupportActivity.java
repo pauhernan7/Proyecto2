@@ -64,7 +64,7 @@ public class SupportActivity extends AppCompatActivity
 
         recyclerView = findViewById(R.id.recyclerViewTickets);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ticketAdapter = new TicketAdapter();
+        ticketAdapter = new TicketAdapter(this);
         recyclerView.setAdapter(ticketAdapter);
 
         cargarTickets(); // Llamamos a la API

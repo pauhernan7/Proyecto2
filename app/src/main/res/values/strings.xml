@@ -9,4 +9,10 @@
     <string name="register_button_text">Registrarse</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="imagen_producto">Imagen del producto</string>
+    <string-array name="estados_ticket">
+        <item>pendiente</item>
+        <item>en_proceso</item>
+        <item>resuelto</item>
+    </string-array>
+
 </resources>
