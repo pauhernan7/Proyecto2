@@ -74,6 +74,10 @@ public interface ApiService {
     @GET("api/soporte/")
     Call<List<TicketResponse>> getTodosLosTickets(@Header("Authorization") String token);
 
+    @PUT("api/app/pedidos/{id}/estado/{estado}/")
+    Call<Void> updateOrderStatus(@Path("id") int id, @Path("estado") String estado, @Header("Authorization") String token);
+
+
 
 }
 

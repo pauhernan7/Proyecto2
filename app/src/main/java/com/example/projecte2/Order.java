@@ -13,6 +13,10 @@ public class Order {
     public double getTotal_precio() { return total_precio; }
     public String getEstado() { return estado; }
 
+    //Setters
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
 
     // Solo queremos yyyy-MM-dd
     public String getFechaFormateada() {
