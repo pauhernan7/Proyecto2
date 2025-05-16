@@ -1,8 +1,11 @@
 package com.example.projecte2;
 
+import static androidx.core.util.TypedValueCompat.dpToPx;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.material.internal.ViewUtils;
 
 import java.util.List;
 
@@ -43,7 +48,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         holder.tvDate.setText(order.getFechaFormateada());
         holder.tvUserEmail.setText(order.getUsuario().getEmail());
         holder.tvTotalPrice.setText(order.getTotal_precio() + "€");
+
         holder.tvOrderStatus.setText(order.getEstado());
+
+        setupOrderStatus(holder.tvOrderStatus, order.getEstado());
 
         holder.tvOrderStatus.setOnClickListener(v -> {
             String currentStatus = order.getEstado();
@@ -51,6 +59,36 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         });
     }
 
+    private void setupOrderStatus(TextView statusView, String status) {
+        // Configurar el texto en mayúsculas
+        statusView.setText(status.toUpperCase());
+
+        // Configurar el fondo según el estado
+        switch (status.toLowerCase()) {
+            case "pendiente":
+                statusView.setBackgroundResource(R.drawable.bg_status_pending);
+                break;
+            case "enviado":
+                statusView.setBackgroundResource(R.drawable.bg_status_shipped);
+                break;
+            case "entregado":
+                statusView.setBackgroundResource(R.drawable.bg_status_delivered);
+                break;
+            case "cancelado":
+                statusView.setBackgroundResource(R.drawable.bg_status_cancelled);
+                break;
+        }
+
+        // Asegurar que el texto esté centrado
+        statusView.setGravity(Gravity.CENTER);
+
+        // Opcional: Ajustar el tamaño mínimo para estados más cortos
+        statusView.setMinWidth((int) (100 * context.getResources().getDisplayMetrics().density + 0.5f));
+    }
+
+    private int dpToPx(int dp) {
+        return (int) (dp * context.getResources().getDisplayMetrics().density);
+    }
     @Override
     public int getItemCount() {
         return orders.size();

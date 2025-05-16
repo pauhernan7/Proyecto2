@@ -1,80 +1,96 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
-    app:cardElevation="6dp"
+    app:cardElevation="4dp"
+    app:cardUseCompatPadding="true"
     android:backgroundTint="@android:color/white">
 
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:padding="8dp">
-
-<!-- Izquierda: ID y fecha -->
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:layout_marginEnd="8dp">
-
-    <TextView
-        android:id="@+id/tvOrderId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pedido #123"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tvOrderDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="01/05/2025"
-        android:textSize="12sp"/>
-</LinearLayout>
-
-<!-- Centro: Correo (ocupa la mayor parte) -->
-    <!-- Centro: Correo + Estado -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_weight="1"
-        android:gravity="center">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/tvUserEmail"
+        <!-- Izquierda: ID y fecha -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:text="correo@example.com"
-            android:textAlignment="center"/>
+            android:orientation="vertical"
+            android:layout_marginEnd="16dp">
 
+            <TextView
+                android:id="@+id/tvOrderId"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pedido #123"
+                android:textStyle="bold"
+                android:textColor="#333333"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/tvOrderDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="01/05/2025"
+                android:textSize="12sp"
+                android:textColor="#757575"
+                android:layout_marginTop="4dp"/>
+        </LinearLayout>
+
+        <!-- Centro: Correo + Estado -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvUserEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="correo@example.com"
+                android:textAlignment="center"
+                android:textColor="#424242"
+                android:textSize="14sp"
+                tools:ignore="RtlHardcoded"/>
+
+            <TextView
+                android:id="@+id/tvOrderStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:text="ENTREGADO"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:textAllCaps="true"
+                android:gravity="center"
+                android:background="@drawable/bg_status_delivered"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:singleLine="true"/>
+        </LinearLayout>
+
+        <!-- Derecha: Precio -->
         <TextView
-            android:id="@+id/tvOrderStatus"
+            android:id="@+id/tvOrderAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pendiente"
-            android:textColor="@android:color/holo_blue_dark"
-            android:background="@android:color/darker_gray"
-            android:padding="4dp"
-            android:textSize="12sp"
-            android:clickable="true"
-            android:focusable="true"/>
+            android:text="25,50€"
+            android:textColor="#4CAF50"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="8dp"/>
     </LinearLayout>
-
-
-<!-- Derecha: Precio -->
-<TextView
-    android:id="@+id/tvOrderAmount"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="25,50€"
-    android:layout_gravity="center_vertical"
-    android:paddingStart="8dp"/>
-</LinearLayout>
-    </androidx.cardview.widget.CardView>
+</androidx.cardview.widget.CardView>
