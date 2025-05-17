@@ -130,8 +130,11 @@ public class AddProductoActivity extends AppCompatActivity {
                     // Guardar la imagen SOLO después de obtener el ID del producto
                     if (imagenBase64 != null && creado != null) {
                         SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("imagen_producto_" + creado.getId(), imagenBase64);
+                        String clave = "imagen_producto_" + creado.getId();
+                        editor.putString(clave, imagenBase64);
                         editor.apply();
+                        android.util.Log.d("AddProductoActivity", "Imagen guardada con clave: " + clave);
+
                     }
 
                     // Volver con resultado a CatalogActivity

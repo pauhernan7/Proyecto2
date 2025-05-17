@@ -1,6 +1,9 @@
 package com.example.projecte2;
 
+import com.google.gson.annotations.SerializedName;
+
 public class ItemCarrito {
+    @SerializedName(value = "producto_id", alternate = {"id"})
     private int producto_id;  // antes producto_id, ahora debe ser producto_id para mapear JSON
     private String nombre;
     private double precio;
@@ -21,7 +24,7 @@ public class ItemCarrito {
 
 
     // Getters y setters
-    public int getId() { return producto_id; }
+    public int getId() { return this.producto_id; }
     public void setId(int producto_id) { this.producto_id = producto_id; }
 
     public String getNombre() { return nombre; }

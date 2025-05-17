@@ -43,7 +43,14 @@ public class CarritoAdapter extends RecyclerView.Adapter<CarritoAdapter.ViewHold
 
         // Obtener imagen desde SharedPreferences usando el ID del producto
         SharedPreferences prefs = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
-        String imagenBase64 = prefs.getString("imagen_producto_" + producto.getId(), null);
+
+
+        // Log para depuración de ID y clave de imagen
+        android.util.Log.d("CarritoAdapter", "ID producto carrito: " + producto.getId());
+        String clave = "imagen_producto_" + producto.getId();
+        android.util.Log.d("CarritoAdapter", "Clave imagen: " + clave);
+        String imagenBase64 = prefs.getString(clave, null);
+        android.util.Log.d("CarritoAdapter", "¿Imagen existe? " + (imagenBase64 != null));
 
         // Cargar imagen con Glide
         if (imagenBase64 != null && !imagenBase64.isEmpty()) {

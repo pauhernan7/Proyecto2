@@ -51,7 +51,12 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
 
         // Cargar imagen desde SharedPreferences si está guardada
         SharedPreferences prefs = context.getSharedPreferences("user_data", Context.MODE_PRIVATE);
-        String imagenBase64 = prefs.getString("imagen_producto_" + producto.getId(), null);
+    // Log para depuración de ID y clave de imagen
+        android.util.Log.d("ProductoClienteAdapter", "ID producto catálogo: " + producto.getId());
+        String clave = "imagen_producto_" + producto.getId();
+        android.util.Log.d("ProductoClienteAdapter", "Clave imagen: " + clave);
+        String imagenBase64 = prefs.getString(clave, null);
+        android.util.Log.d("ProductoClienteAdapter", "¿Imagen existe? " + (imagenBase64 != null));
 
         if (imagenBase64 != null && !imagenBase64.isEmpty()) {
             String url = "data:image/jpeg;base64," + imagenBase64;
@@ -68,8 +73,9 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
             int usuarioId = prefs.getInt("user_id", 0);
             int tiendaId = producto.getTienda_id();
 
+            android.util.Log.d("ProductoClienteAdapter", "ID del producto: " + producto.getId());
             ItemCarrito item = new ItemCarrito(producto.getId(), 1);
-            item.setNombre(producto.getNombre());  // Asegúrate que estos campos
+            android.util.Log.d("ProductoClienteAdapter", "ID en ItemCarrito: " + item.getId());            item.setNombre(producto.getNombre());  // Asegúrate que estos campos
             item.setPrecio(producto.getPrecio()); // lleguen al backend
             // Eliminamos item.setImagenBase64();
 
