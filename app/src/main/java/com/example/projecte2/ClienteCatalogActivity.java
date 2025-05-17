@@ -113,6 +113,9 @@ public class ClienteCatalogActivity extends AppCompatActivity
         } else if (id == R.id.nav_support) {
             startActivity(new Intent(this, CrearTicketActivity.class));
             finish();
+        } else if (id == R.id.nav_verTickets) {
+            startActivity(new Intent(this, VerTicketsSoporteActivity.class));
+            finish();
         } else if (id == R.id.logout) {
             getSharedPreferences("user_prefs", MODE_PRIVATE)
                     .edit()

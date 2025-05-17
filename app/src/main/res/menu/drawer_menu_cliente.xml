@@ -13,7 +13,12 @@
         <item
             android:id="@+id/nav_support"
             android:icon="@drawable/burguer"
-            android:title="Suport" />
+            android:title="Crear Tickets de Suport" />
+        <item
+            android:id="@+id/nav_verTickets"
+            android:icon="@drawable/burguer"
+            android:title="Veure tickets" />
+
         <item
             android:id="@+id/logout"
             android:icon="@drawable/burguer"

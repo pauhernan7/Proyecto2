@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".VerTicketsSoporteActivity"
+            android:exported="false" />
+        <activity
             android:name=".CrearTicketActivity"
             android:exported="false" />
         <activity

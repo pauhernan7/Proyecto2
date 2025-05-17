@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.okhttp.logging)
     implementation(libs.cardview)
     implementation(libs.glide)
+    implementation(libs.recyclerview)
     annotationProcessor(libs.glide.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)

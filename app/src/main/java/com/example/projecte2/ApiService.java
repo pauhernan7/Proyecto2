@@ -84,6 +84,10 @@ public interface ApiService {
             @Header("Authorization") String token
     );
 
+    @GET("api/soporte/")
+    Call<List<TicketResponse>> obtenerMisTickets(@Header("Authorization") String token);
+
+
 
 
 

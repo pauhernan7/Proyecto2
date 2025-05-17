@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".cliente.CatalogoClienteActivity">
+    tools:context=".ClienteCatalogActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
