@@ -38,7 +38,7 @@ public class TicketClienteAdapter extends RecyclerView.Adapter<TicketClienteAdap
     public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         TicketResponse ticket = tickets.get(position);
         holder.asunto.setText("Assumpte: " + ticket.getAsunto());
-        holder.estado.setText("Estat: " + ticket.getEstado());
+        holder.estado.setText("Estat: " + ticket.getEstadoDisplay());
         holder.mensaje.setText("Missatge: " + ticket.getMensaje());
         holder.respuesta.setText("Resposta: " + (ticket.getRespuesta() != null ? ticket.getRespuesta() : "Encara sense resposta"));
 
@@ -46,13 +46,17 @@ public class TicketClienteAdapter extends RecyclerView.Adapter<TicketClienteAdap
             case "resuelto":
                 holder.estado.setTextColor(Color.GREEN);
                 break;
+            case "pendiente":
+                holder.estado.setTextColor(Color.RED);
+                break;
             case "en_proceso":
                 holder.estado.setTextColor(Color.YELLOW);
                 break;
             default:
-                holder.estado.setTextColor(Color.RED);
+                holder.estado.setTextColor(Color.GRAY);
                 break;
         }
+
     }
 
     @Override

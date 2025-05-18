@@ -71,7 +71,7 @@ public class ProductoClienteAdapter extends RecyclerView.Adapter<ProductoCliente
         holder.btnComprar.setOnClickListener(v -> {
             String token = prefs.getString("token", "");
             int usuarioId = prefs.getInt("user_id", 0);
-            int tiendaId = producto.getTienda_id();
+            int tiendaId = 11;
 
             android.util.Log.d("ProductoClienteAdapter", "ID del producto: " + producto.getId());
             ItemCarrito item = new ItemCarrito(producto.getId(), 1);

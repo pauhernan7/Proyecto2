@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:elevation="4dp"
-    android:radius="8dp"
+    android:radius="24dp"
     >
 
     <LinearLayout

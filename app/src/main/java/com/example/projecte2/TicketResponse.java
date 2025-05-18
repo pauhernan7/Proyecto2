@@ -1,24 +1,38 @@
 package com.example.projecte2;
 
+import com.google.gson.annotations.SerializedName;
+
 public class TicketResponse {
     private int id;
+    private int usuario;
+
+    @SerializedName("usuario_email")
+    private String usuarioEmail;
+
     private String asunto;
     private String mensaje;
     private String estado;
-    private String respuesta;
-    private String fecha_creacion;
-    private String fecha_actualizacion;
-    private int usuario; // o un objeto, según tu serializer
 
-    // Getters (añade setters si necesitas)
+    @SerializedName("estado_display")
+    private String estadoDisplay;
+
+    private String respuesta;
+
+    @SerializedName("fecha_creacion")
+    private String fechaCreacion;
+
+    @SerializedName("fecha_actualizacion")
+    private String fechaActualizacion;
+
+    // Getters
     public int getId() { return id; }
+    public int getUsuario() { return usuario; }
+    public String getUsuarioEmail() { return usuarioEmail; }
     public String getAsunto() { return asunto; }
     public String getMensaje() { return mensaje; }
     public String getEstado() { return estado; }
+    public String getEstadoDisplay() { return estadoDisplay; }
     public String getRespuesta() { return respuesta; }
-    public String getFecha_creacion() { return fecha_creacion; }
-    public String getFecha_actualizacion() { return fecha_actualizacion; }
-    public int getUsuario() { return usuario; }
+    public String getFechaCreacion() { return fechaCreacion; }
+    public String getFechaActualizacion() { return fechaActualizacion; }
 }
-
-

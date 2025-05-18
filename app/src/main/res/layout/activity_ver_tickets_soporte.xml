@@ -1,12 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
+    android:background="@drawable/fondo2"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:fitsSystemWindows="true">
 
-    <RecyclerView
-        android:id="@+id/recyclerTicketsCliente"
+    <!-- Contenido principal -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- Aquí podrías usar un fragment personalizado con botón de menú -->
+        <fragment
+            android:id="@+id/headerFragment"
+            android:name="com.example.projecte2.HeaderFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- RecyclerView del contenido -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerTicketsCliente"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <!-- Drawer de navegación -->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
+        app:menu="@menu/drawer_menu_cliente"
+        app:elevation="8dp"
+        android:background="@android:color/white"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

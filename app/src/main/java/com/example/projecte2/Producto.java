@@ -21,7 +21,7 @@ public class Producto implements Serializable {
         this.precio = precio;
         this.stock = stock;
         this.categoria = categoria;
-        this.tienda_id = 1;
+        this.tienda_id = 11;
     }
 
     public int getId() { return id; }

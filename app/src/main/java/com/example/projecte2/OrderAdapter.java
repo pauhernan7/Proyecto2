@@ -107,9 +107,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.OrderViewHol
         }
     }
 
-    // ===========================
-    // Método para cambiar estado
-    // ===========================
+
     private void showChangeStatusDialog(int orderId, String currentStatus) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Cambiar estado del pedido");

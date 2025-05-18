@@ -58,9 +58,8 @@ public class OrdersActivity extends AppCompatActivity
         // Configurar el HeaderFragment
         setupHeaderFragment();
 
-        // ============================
         // Cargar pedidos desde Retrofit
-        // ============================
+
 
         RecyclerView recyclerView = findViewById(R.id.recyclerOrders);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -111,7 +110,7 @@ public class OrdersActivity extends AppCompatActivity
         } else if (id == R.id.nav_catalog) {
             startActivity(new Intent(this, CatalogActivity.class));
         } else if (id == R.id.nav_orders) {
-            Toast.makeText(this, "Ya estás en Pedidos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ya estás en Comandes", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_support) {
             startActivity(new Intent(this, SupportActivity.class));
         } else if (id == R.id.logout) {

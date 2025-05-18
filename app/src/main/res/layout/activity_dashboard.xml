@@ -6,7 +6,9 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:fitsSystemWindows="true"
+    android:background="@drawable/fondo2"
     tools:context=".DashboardActivity">
 
     <!-- Contenido principal -->
@@ -14,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@android:color/white">
+        android:background="@drawable/fondo2">
 
         <!-- Header Fragment -->
         <fragment
@@ -71,7 +73,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Producto más vendido:"
+                            android:text="Producte més vengut:"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -91,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
-                    android:text="Últimos pedidos"
+                    android:text="Últimes comandes"
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"

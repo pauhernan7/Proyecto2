@@ -70,7 +70,6 @@ public class HeaderFragment extends Fragment {
     }
 
 
-    // Añade este método para cambiar el título dinámicamente
     public void setTitle(String newTitle) {
         this.title = newTitle;
         if (tvTitle != null) {

@@ -111,7 +111,7 @@ public class DashboardActivity extends AppCompatActivity
                 if (response.isSuccessful()) {
                     List<ProductoVendido> productos = response.body();
                     if (productos == null || productos.isEmpty()) {
-                        Toast.makeText(DashboardActivity.this, "No hay productos vendidos", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(DashboardActivity.this, "No hi han productes venguts", Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -149,13 +149,13 @@ public class DashboardActivity extends AppCompatActivity
                     pieChart.setEntryLabelTextSize(12f);
 
                     Description description = new Description();
-                    description.setText("Total vendidos: " + totalVendidos);
+                    description.setText("Total ventas: " + totalVendidos);
                     description.setTextSize(14f);
                     pieChart.setDescription(description);
                     pieChart.invalidate();
 
                     // Actualizar texto del producto más vendido
-                    tvMostSoldProduct.setText(masVendido.getNombre() + " (" + masVendido.getCantidad_vendida() + " unidades)");
+                    tvMostSoldProduct.setText(masVendido.getNombre() + " (" + masVendido.getCantidad_vendida() + " unitats)");
                 } else {
                     Toast.makeText(DashboardActivity.this, "Error al obtener productos", Toast.LENGTH_SHORT).show();
                 }
@@ -243,7 +243,7 @@ public class DashboardActivity extends AppCompatActivity
 
         if (id == R.id.nav_dashboard) {
             // Ya estamos en Dashboard
-            Toast.makeText(this, "Ya estás en Dashboard", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ya estàs en Dashboard", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.nav_catalog) {
             startActivity(new Intent(this, CatalogActivity.class));
         } else if (id == R.id.nav_orders) {

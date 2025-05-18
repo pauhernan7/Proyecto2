@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:padding="24dp"
     android:layout_width="match_parent"
+    android:background="@drawable/fondo2"
     android:layout_height="wrap_content">
 
     <Spinner

@@ -88,6 +88,13 @@ public interface ApiService {
     Call<List<TicketResponse>> obtenerMisTickets(@Header("Authorization") String token);
 
 
+    @DELETE("api/carrito/borrar/{usuario_id}/{producto_id}/")
+    Call<Void> eliminarDelCarrito(@Header("Authorization") String token,
+                                  @Path("usuario_id") int usuarioId,
+                                  @Path("producto_id") int productoId);
+
+
+
 
 
 

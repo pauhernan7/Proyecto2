@@ -9,12 +9,12 @@
     <!-- Logo de la empresa -->
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="166dp"
+        android:layout_height="136dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="70dp"
         android:contentDescription="@string/logo_descripcion"
-        android:src="@drawable/logo_empresa" />
+        android:src="@drawable/planta" />
 
     <!-- Título de la pantalla de registro -->
     <TextView

@@ -177,8 +177,11 @@ public class CrearTicketActivity extends AppCompatActivity
             startActivity(new Intent(this, CarritoActivity.class));
             finish();
         } else if (id == R.id.nav_support) {
-            Toast.makeText(this, "Ja ets a Suport", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Ja ets a crear ticket", Toast.LENGTH_SHORT).show();
 
+        } else if (id == R.id.nav_verTickets) {
+            startActivity(new Intent(this, VerTicketsSoporteActivity.class));
+            finish();
         } else if (id == R.id.logout) {
             getSharedPreferences("user_prefs", MODE_PRIVATE)
                     .edit()

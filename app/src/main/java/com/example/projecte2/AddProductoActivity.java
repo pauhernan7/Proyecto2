@@ -73,7 +73,6 @@ public class AddProductoActivity extends AppCompatActivity {
 
             Bitmap bitmap = BitmapFactory.decodeStream(inputStream, null, options);
 
-            // Redimensionar si es necesario (ejemplo: máximo 800px de ancho)
             int maxWidth = 800;
             if (bitmap.getWidth() > maxWidth) {
                 int newHeight = (int) (bitmap.getHeight() * ((float) maxWidth / bitmap.getWidth()));
@@ -96,7 +95,7 @@ public class AddProductoActivity extends AppCompatActivity {
         double precio = Double.parseDouble(etPrecio.getText().toString());
         int stock = Integer.parseInt(etStock.getText().toString());
         String categoria = etCategoria.getText().toString();
-        int tiendaId = 1;
+        int tiendaId = 11;
 
         Producto nuevoProducto = new Producto();
         nuevoProducto.setNombre(nombre);

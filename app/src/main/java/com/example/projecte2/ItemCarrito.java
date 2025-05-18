@@ -4,12 +4,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class ItemCarrito {
     @SerializedName(value = "producto_id", alternate = {"id"})
-    private int producto_id;  // antes producto_id, ahora debe ser producto_id para mapear JSON
+    private int producto_id;
     private String nombre;
     private double precio;
     private int cantidad;
-    private double subtotal;  // agregar para mapear JSON
-    private String imagenBase64;  // <-- Nuevo campo para la imagen en base64
+    private double subtotal;
+    private String imagenBase64;
 
 
 

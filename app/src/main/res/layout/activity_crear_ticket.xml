@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo2"
     android:fitsSystemWindows="true">
 
     <!-- Contenedor principal -->
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorBackground">
+        android:background="@drawable/fondo2">
 
         <fragment
             android:id="@+id/headerFragment"
@@ -38,7 +39,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Preguntas Frecuentes"
+                    android:text="Preguntes Freqüents"
                     android:textSize="18sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
@@ -77,7 +78,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="1. ¿Cómo puedo resetear mi contraseña?"
+                                    android:text="1. Com puc crear un ticket?"
                                     android:textColor="@android:color/black"/>
 
                                 <ImageView
@@ -94,7 +95,7 @@
                                 android:padding="16dp"
                                 android:background="@color/colorLightGray"
                                 android:visibility="gone"
-                                android:text="Para resetear tu contraseña, ve a Configuración > Seguridad y selecciona 'Olvidé mi contraseña'. Recibirás un email con instrucciones."/>
+                                android:text="Per crear un ticket ves a Crear ticekt i omple l'assumpte i la descripció del problema i en breus moments et contestarem"/>
 
                             <View
                                 android:layout_width="match_parent"
@@ -123,7 +124,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="2. ¿Dónde encuentro mis facturas?"
+                                    android:text="2. Quant de temps triguen els enviaments?"
                                     android:textColor="@android:color/black"/>
 
                                 <ImageView
@@ -140,7 +141,7 @@
                                 android:padding="16dp"
                                 android:background="@color/colorLightGray"
                                 android:visibility="gone"
-                                android:text="Todas tus facturas están disponibles en la sección 'Mis Facturas' de la aplicación. También puedes descargarlas en formato PDF."/>
+                                android:text="Normalment si no hi ha cap imprevist les comandes solen trigar entre uns 3-5 dies laborables"/>
 
                             <View
                                 android:layout_width="match_parent"
@@ -169,7 +170,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="3. ¿Cuáles son los horarios de atención?"
+                                    android:text="3. Quins són els horaris d'atenció al client?"
                                     android:textColor="@android:color/black"/>
 
                                 <ImageView
@@ -186,7 +187,7 @@
                                 android:padding="16dp"
                                 android:background="@color/colorLightGray"
                                 android:visibility="gone"
-                                android:text="Nuestro servicio de atención al cliente está disponible de lunes a viernes de 8:00 am a 6:00 pm y sábados de 9:00 am a 1:00 pm."/>
+                                android:text="El nostre horari d'atenció al client està disponible de dilluns a divendres de 8:00 am a 6:00 pm y dissabtes de 9:00 am a 1:00 pm"/>
 
                             <View
                                 android:layout_width="match_parent"
@@ -215,7 +216,7 @@
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:text="4. ¿Cómo cambio mi plan de servicio?"
+                                    android:text="4. Com puc comprar un producte?"
                                     android:textColor="@android:color/black"/>
 
                                 <ImageView
@@ -232,7 +233,7 @@
                                 android:padding="16dp"
                                 android:background="@color/colorLightGray"
                                 android:visibility="gone"
-                                android:text="Puedes cambiar tu plan en cualquier momento desde la sección 'Mi Cuenta' > 'Planes de Servicio'. Los cambios se aplicarán en tu próximo ciclo de facturación."/>
+                                android:text="Primer de tot has de seleccionar el producte que vols comprar al catàleg i se't afegirà al carrito de compres i ja desde el carrito pots comprar els productes"/>
                         </LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -242,7 +243,7 @@
                     android:id="@+id/btnMoreHelp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="¿Necesitas más ayuda?"
+                    android:text="Necessites més ajuda?"
                     android:layout_marginTop="8dp"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     app:cornerRadius="8dp"
@@ -262,7 +263,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Crear nuevo ticket"
+                    android:text="Crear nou ticket"
                     android:textSize="18sp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textStyle="bold"
@@ -278,7 +279,7 @@
                         android:id="@+id/etAsunto"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Asunto"
+                        android:hint="Assumpte"
                         android:inputType="textCapSentences"
                         android:maxLines="1" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -293,7 +294,7 @@
                         android:id="@+id/etMensaje"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
-                        android:hint="Describe tu problema..."
+                        android:hint="Descriu el teu problema..."
                         android:inputType="textMultiLine|textCapSentences"
                         android:gravity="top"
                         android:minLines="5" />
@@ -323,7 +324,5 @@
         android:background="@android:color/white"
         app:menu="@menu/drawer_menu_cliente"
         app:headerLayout="@layout/nav_header"
-        app:itemTextColor="@color/colorPrimaryDark"
-        app:itemIconTint="@color/colorPrimaryDark"
         app:elevation="8dp"/>
 </androidx.drawerlayout.widget.DrawerLayout>
