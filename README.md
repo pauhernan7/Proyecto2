@@ -1,25 +1,34 @@
-
 # 🌿 Plantae - Aplicación Android de Comercio Electrónico
+
+## 📚 Índice
+
+- [📄 Archivos fuente relevantes](#-archivos-fuente-relevantes)  
+- [🎯 Propósito y funcionalidad](#-propósito-y-funcionalidad)  
+- [🏗️ Arquitectura del sistema](#-arquitectura-del-sistema)  
+- [🧰 Tecnologías utilizadas](#-tecnologías-utilizadas)  
+- [🧭 Flujos de usuario y navegación](#-flujos-de-usuario-y-navegación)  
+- [👥 Tipos de usuario y autenticación](#-tipos-de-usuario-y-autenticación)  
+- [🗂️ Modelos de datos y comunicación](#-modelos-de-datos-y-comunicación)  
+- [📊 Panel de administración](#-panel-de-administración)  
+- [🛍️ Interfaz del cliente](#-interfaz-del-cliente)  
+- [🧩 Navegación y componentes UI](#-navegación-y-componentes-ui)  
+- [⚙️ Configuración del proyecto](#-configuración-del-proyecto)  
+- [🔗 Enlaces útiles](#-enlaces-útiles)
+
+---
 
 ## 📄 Archivos fuente relevantes
 
-📁 app/build.gradle.kts
-
-📁 app/src/main/AndroidManifest.xml
-
-📁 app/src/main/java/com/example/projecte2/DashboardActivity.java
-
-📁 app/src/main/java/com/example/projecte2/MainActivity.java
-
-📁 app/src/main/java/com/example/projecte2/ProductoVendido.java
-
-📁 gradle/libs.versions.toml
-
+📁 app/build.gradle.kts  
+📁 app/src/main/AndroidManifest.xml  
+📁 app/src/main/java/com/example/projecte2/DashboardActivity.java  
+📁 app/src/main/java/com/example/projecte2/MainActivity.java  
+📁 app/src/main/java/com/example/projecte2/ProductoVendido.java  
+📁 gradle/libs.versions.toml  
 
 Este documento proporciona una visión general de la aplicación Android de comercio electrónico **Plantae**, explicando su propósito, arquitectura, componentes clave y flujos de trabajo. La app ofrece dos interfaces diferentes:  
 👨‍💼 Panel administrativo para la gestión de productos y pedidos  
-🛍️ Tienda para clientes para explorar y comprar productos
-
+🛍️ Tienda para clientes para explorar y comprar productos  
 
 ---
 
@@ -85,8 +94,8 @@ La app admite dos flujos de usuario distintos según su rol de autenticación:
 
 La aplicación distingue entre dos tipos de usuarios:
 
-- 👨‍💼 **Administrador** – Accede al dashboard, gestiona productos, pedidos y soporte
-- 🛒 **Cliente** – Explora productos, añade al carrito, realiza compras y abre tickets
+- 👨‍💼 **Administrador** – Accede al dashboard, gestiona productos, pedidos y soporte  
+- 🛒 **Cliente** – Explora productos, añade al carrito, realiza compras y abre tickets  
 
 La autenticación usa tokens JWT, y los datos de sesión se almacenan en `SharedPreferences`.
 
@@ -124,7 +133,7 @@ El dashboard centraliza las funciones del administrador:
 - Estadísticas de ventas con gráficos  
 - Producto más vendido  
 - Lista de pedidos recientes  
-- Navegación a secciones administrativas
+- Navegación a secciones administrativas  
 
 Utiliza **MPAndroidChart** para visualizar los datos desde la API.
 
@@ -167,8 +176,9 @@ La interfaz del cliente permite:
 📌 Fuentes:  
 `build.gradle.kts`, `libs.versions.toml`
 
+---
 
-## Enlaces útiles
-- https://github.com/achrafcr21/Projecte2_tiendas.git
-- https://github.com/achrafcr21/Projecte2_tiendas/blob/main/docs/README_detallado.md
+## 🔗 Enlaces útiles
 
+- 📦 [Repositorio principal](https://github.com/achrafcr21/Projecte2_tiendas.git)  
+- 📘 [README detallado](https://github.com/achrafcr21/Projecte2_tiendas/blob/main/docs/README_detallado.md)
