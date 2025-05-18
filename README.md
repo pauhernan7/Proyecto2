@@ -166,3 +166,9 @@ La interfaz del cliente permite:
 
 📌 Fuentes:  
 `build.gradle.kts`, `libs.versions.toml`
+
+
+## Enlaces útiles
+- https://github.com/achrafcr21/Projecte2_tiendas.git
+- https://github.com/achrafcr21/Projecte2_tiendas/blob/main/docs/README_detallado.md
+
