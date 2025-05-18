@@ -1,147 +1,163 @@
-# Descripción general
 
-## Archivos fuente relevantes
+# 🌿 Plantae - Aplicación Android de Comercio Electrónico
 
-- `app/build.gradle.kts`  
-- `app/src/main/AndroidManifest.xml`  
-- `app/src/main/java/com/example/projecte2/DashboardActivity.java`  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`  
-- `app/src/main/java/com/example/projecte2/ProductoVendido.java`  
-- `gradle/libs.versions.toml`  
+## 📄 Archivos fuente relevantes
 
-Este documento proporciona una visión general completa de la aplicación de comercio electrónico Android, explicando su propósito, arquitectura, componentes clave y flujos de trabajo. La aplicación ofrece dos interfaces de usuario distintas: un panel administrativo para la gestión de productos y pedidos, y una tienda orientada al cliente para explorar y comprar productos.
+📁 app/build.gradle.kts
+📁 app/src/main/AndroidManifest.xml
+📁 app/src/main/java/com/example/projecte2/DashboardActivity.java
+📁 app/src/main/java/com/example/projecte2/MainActivity.java
+📁 app/src/main/java/com/example/projecte2/ProductoVendido.java
+📁 gradle/libs.versions.toml
 
-Para obtener información detallada sobre los componentes específicos del sistema, consulta la sección Arquitectura del Sistema y sus subsecciones.
+Este documento proporciona una visión general de la aplicación Android de comercio electrónico **Plantae**, explicando su propósito, arquitectura, componentes clave y flujos de trabajo. La app ofrece dos interfaces diferentes:  
+👨‍💼 Panel administrativo para la gestión de productos y pedidos  
+🛍️ Tienda para clientes para explorar y comprar productos
 
-## Propósito y funcionalidad
+Para más detalles técnicos, consulta la sección de **Arquitectura del sistema** y sus subsecciones.
 
-La aplicación está diseñada para facilitar operaciones de venta en línea con las siguientes funciones clave:
+---
 
-- Autenticación de usuarios con acceso basado en roles (administrador/cliente)  
-- Panel de administración con análisis de ventas  
-- Gestión de catálogo de productos para administradores  
-- Exploración y compra de productos para clientes  
-- Sistema de carrito de compras  
-- Seguimiento y gestión de pedidos  
-- Sistema de tickets de soporte  
+## 🎯 Propósito y funcionalidad
 
-**Fuentes:**  
-- `app/src/main/AndroidManifest.xml`  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`
+La aplicación está diseñada para facilitar operaciones de venta en línea, e incluye las siguientes funciones:
 
-# Visión general de la arquitectura del sistema
+- 🔐 Autenticación con control de acceso por roles (admin/cliente)  
+- 📊 Panel de administración con estadísticas de ventas  
+- 📦 Gestión del catálogo de productos  
+- 🛒 Navegación y compra de productos  
+- 🛍️ Carrito de compras  
+- 🚚 Seguimiento de pedidos  
+- 🆘 Sistema de soporte mediante tickets
 
-La aplicación sigue una arquitectura cliente-servidor con una API RESTful para la comunicación con el backend.
+📌 Fuentes:  
+`AndroidManifest.xml`, `MainActivity.java`
 
-## Arquitectura a alto nivel
+---
+
+## 🏗️ Arquitectura del sistema
+
+La app sigue una arquitectura cliente-servidor, comunicándose con el backend mediante una API REST.
+
+### 🧱 Arquitectura a alto nivel
 
 ![Arquitectura](https://github.com/user-attachments/assets/700523f1-8a6a-4ac3-881b-6d9a05ded352)
 
-**Fuentes:**  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`  
-- `app/src/main/java/com/example/projecte2/DashboardActivity.java`
+📌 Fuentes:  
+`MainActivity.java`, `DashboardActivity.java`
 
-## Tecnologías utilizadas
+---
 
-| Componente              | Tecnología             | Propósito                                      |
-|-------------------------|------------------------|------------------------------------------------|
-| Interfaz de usuario     | Android XML Layouts    | Definición de la interfaz                      |
-| Comunicación backend    | Retrofit               | Cliente para API REST                          |
-| Análisis de datos       | Gson                   | Serialización/deserialización JSON             |
-| Carga de imágenes       | Glide                  | Carga y caché eficiente de imágenes            |
-| Gráficos                | MPAndroidChart         | Visualización de datos en el panel             |
-| Logging de red          | OkHttp Interceptor     | Depuración de llamadas a la API                |
-| Componentes de UI       | Material Design        | Elementos de UI modernos                       |
+## 🧰 Tecnologías utilizadas
 
-**Fuentes:**  
-- `gradle/libs.versions.toml`  
-- `app/build.gradle.kts`
+| Componente              | Tecnología         | Propósito                                      |
+|-------------------------|--------------------|-----------------------------------------------|
+| 🖼️ Interfaz UI         | Android XML        | Definición de interfaces                      |
+| 🔌 Comunicación backend | Retrofit           | Cliente para API REST                         |
+| 🔄 Parsing de datos     | Gson               | Serialización/Deserialización de JSON         |
+| 🖼️ Carga de imágenes    | Glide              | Carga y caché eficiente de imágenes           |
+| 📊 Gráficas             | MPAndroidChart     | Visualización de datos (ventas, productos)    |
+| 🐛 Logs de red          | OkHttp Interceptor | Depuración de peticiones API                  |
+| 🎨 Componentes UI       | Material Design    | Elementos modernos de interfaz                |
 
-## Flujo de usuario y navegación
+📌 Fuentes:  
+`libs.versions.toml`, `build.gradle.kts`
 
-La aplicación admite dos flujos de usuario distintos según el rol autenticado:
+---
 
-![Flujo de usuarios](https://github.com/user-attachments/assets/2c650bcc-d620-40e9-8d00-40fdb0fa5893)
+## 🧭 Flujos de usuario y navegación
 
-**Fuentes:**  
-- `app/src/main/AndroidManifest.xml`  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`  
-- `app/src/main/java/com/example/projecte2/DashboardActivity.java`
+La app admite dos flujos de usuario distintos según su rol de autenticación:
 
-## Autenticación y tipos de usuario
+![User Flow](https://github.com/user-attachments/assets/2c650bcc-d620-40e9-8d00-40fdb0fa5893)
 
-La aplicación admite dos roles de usuario:
+📌 Fuentes:  
+`AndroidManifest.xml`, `MainActivity.java`, `DashboardActivity.java`
 
-- **Administrador**: acceso al panel de control, gestión de productos y pedidos, y sistema de soporte.  
-- **Cliente**: puede explorar productos, agregar al carrito, realizar compras y enviar tickets de soporte.  
+---
 
-La autenticación se maneja mediante un sistema de tokens JWT, y las credenciales junto con el token se almacenan en `SharedPreferences` para mantener la sesión entre usos.
+## 👥 Tipos de usuario y autenticación
 
-**Fuentes:**  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`
+La aplicación distingue entre dos tipos de usuarios:
 
-## Modelos de datos y comunicación
+- 👨‍💼 **Administrador** – Accede al dashboard, gestiona productos, pedidos y soporte
+- 🛒 **Cliente** – Explora productos, añade al carrito, realiza compras y abre tickets
 
-### Modelos de datos clave
+La autenticación usa tokens JWT, y los datos de sesión se almacenan en `SharedPreferences`.
 
-![Modelos de datos](https://github.com/user-attachments/assets/7188b06f-a53e-450a-9755-3c050171d22c)
+📌 Fuente:  
+`MainActivity.java`
 
-**Fuentes:**  
-- `app/src/main/java/com/example/projecte2/ProductoVendido.java`  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`
+---
 
-### Comunicación con la API
+## 🗂️ Modelos de datos y comunicación
 
-La aplicación utiliza Retrofit para comunicarse con el servidor backend. La interfaz `ApiService` define los métodos de los endpoints, mientras que la clase `RetrofitClient` configura el cliente HTTP.
+### 📦 Modelos de datos principales
 
-![API](https://github.com/user-attachments/assets/e4d430e5-2b5a-4efc-8d62-bfcf8925d9ca)
+![Data Models](https://github.com/user-attachments/assets/7188b06f-a53e-450a-9755-3c050171d22c)
 
-**Fuentes:**  
-- `app/src/main/java/com/example/projecte2/MainActivity.java`  
-- `app/src/main/java/com/example/projecte2/DashboardActivity.java`
+📌 Fuente:  
+`ProductoVendido.java`, `MainActivity.java`
 
-## Panel de administración
+### 🔁 Comunicación API
 
-El panel de administración es el centro de operaciones para funciones administrativas, que proporciona:
+Retrofit se encarga de la comunicación con el servidor.  
+- `ApiService` define los endpoints  
+- `RetrofitClient` configura el cliente HTTP
 
-- Estadísticas de ventas con gráficos de pastel  
-- Información sobre el producto más vendido  
-- Listado de pedidos recientes  
-- Navegación a otras secciones de administración  
+![API Communication](https://github.com/user-attachments/assets/e4d430e5-2b5a-4efc-8d62-bfcf8925d9ca)
 
-Este panel utiliza la librería MPAndroidChart para visualizar datos de ventas extraídos de la API.
+📌 Fuentes:  
+`MainActivity.java`, `DashboardActivity.java`
 
-**Fuentes:**  
-- `app/src/main/java/com/example/projecte2/DashboardActivity.java`
+---
 
-## Interfaz del cliente
+## 📊 Panel de administración
 
-La interfaz del cliente está centrada en la experiencia de compra:
+El dashboard centraliza las funciones del administrador:
 
-- Exploración del catálogo de productos  
-- Gestión del carrito de compras  
-- Proceso de pago  
-- Seguimiento de pedidos  
-- Creación de tickets de soporte  
+- Estadísticas de ventas con gráficos  
+- Producto más vendido  
+- Lista de pedidos recientes  
+- Navegación a secciones administrativas
 
-**Fuentes:**  
-- `app/src/main/AndroidManifest.xml`
+Utiliza **MPAndroidChart** para visualizar los datos desde la API.
 
-## Navegación y componentes de UI
+📌 Fuente:  
+`DashboardActivity.java`
 
-La aplicación mantiene una navegación coherente a través de las pantallas:
+---
 
-- `HeaderFragment`: proporciona barra superior de navegación y título  
-- `DrawerLayout` con `NavigationView`: menú lateral  
-- `RecyclerView` con adaptadores personalizados: para mostrar listas de productos, pedidos y tickets  
+## 🛍️ Interfaz del cliente
 
-**Fuentes:**  
-- `app/src/main/java/com/example/projecte2/DashboardActivity.java`
+La interfaz del cliente permite:
 
-## Configuración del proyecto
+- Navegar por el catálogo de productos  
+- Gestionar el carrito  
+- Realizar el proceso de compra  
+- Ver pedidos y crear tickets de soporte
 
-La aplicación está dirigida a la API 35 de Android (Android 15), con un mínimo de API 25 (Android 7.1). Utiliza Kotlin DSL para la configuración de Gradle y un sistema de gestión de dependencias basado en archivos `.toml`.
+📌 Fuente:  
+`AndroidManifest.xml`
 
-**Fuentes:**  
-- `app/build.gradle.kts`  
-- `gradle/libs.versions.toml`
+---
+
+## 🧩 Navegación y componentes UI
+
+- `HeaderFragment`: navegación superior con título  
+- `DrawerLayout` y `NavigationView`: menú lateral  
+- `RecyclerView`: muestra listas (productos, pedidos, tickets)
+
+📌 Fuente:  
+`DashboardActivity.java`
+
+---
+
+## ⚙️ Configuración del proyecto
+
+- 🎯 API Target: Android 15 (API 35)  
+- 📉 Mínimo SDK: Android 7.1 (API 25)  
+- 🛠️ Build system: Kotlin DSL y gestión de dependencias TOML
+
+📌 Fuentes:  
+`build.gradle.kts`, `libs.versions.toml`
