@@ -15,11 +15,11 @@
 
 📁 gradle/libs.versions.toml
 
+
 Este documento proporciona una visión general de la aplicación Android de comercio electrónico **Plantae**, explicando su propósito, arquitectura, componentes clave y flujos de trabajo. La app ofrece dos interfaces diferentes:  
 👨‍💼 Panel administrativo para la gestión de productos y pedidos  
 🛍️ Tienda para clientes para explorar y comprar productos
 
-Para más detalles técnicos, consulta la sección de **Arquitectura del sistema** y sus subsecciones.
 
 ---
 
