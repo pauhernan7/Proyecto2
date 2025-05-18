@@ -4,10 +4,15 @@
 ## 📄 Archivos fuente relevantes
 
 📁 app/build.gradle.kts
+
 📁 app/src/main/AndroidManifest.xml
+
 📁 app/src/main/java/com/example/projecte2/DashboardActivity.java
+
 📁 app/src/main/java/com/example/projecte2/MainActivity.java
+
 📁 app/src/main/java/com/example/projecte2/ProductoVendido.java
+
 📁 gradle/libs.versions.toml
 
 Este documento proporciona una visión general de la aplicación Android de comercio electrónico **Plantae**, explicando su propósito, arquitectura, componentes clave y flujos de trabajo. La app ofrece dos interfaces diferentes:  
