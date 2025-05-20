@@ -7,6 +7,7 @@ public class RetrofitClient {
     //ip wifi cole 192.168.17.85
     //ip otra  192.168.1.39
     //ip servidor 13.219.159.223
+    // ip servidor dominio https://digimarketing.brawledgar.cat/
     private static final String BASE_URL = "http://13.219.159.223/";
     private static Retrofit retrofit;
 
